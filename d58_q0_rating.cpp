@@ -27,7 +27,7 @@ int main() {
     int sum=0;
     for(int i=0;i<n;i++) {
         if(i!=0 && vc[i].first != vc[i-1].first) {
-            cout << vc[i-1].first << " " << (sum+0.00)/cou << endl;
+            cout << vc[i-1].first << " " << (sum+0.00)/cou << "\n";
             cou = 0;
             sum = 0;
         }
@@ -35,13 +35,13 @@ int main() {
         sum += vc[i].second;
 
     }
-    cout << vc[n-1].first << " " << (sum+0.00)/cou << endl;
+    cout << vc[n-1].first << " " << (sum+0.00)/cou << "\n";
 
     cou=0;
     sum=0;
     for(int i=0;i<n;i++) {
         if(i!=0 && vp[i].first != vp[i-1].first) {
-            cout << vp[i-1].first << " " << (sum+0.00)/cou << endl;
+            cout << vp[i-1].first << " " << (sum+0.00)/cou << "\n";
             cou = 0;
             sum = 0;
         }
@@ -49,7 +49,7 @@ int main() {
         sum += vp[i].second;
 
     }
-    cout << vp[n-1].first << " " << (sum+0.00)/cou << endl;
+    cout << vp[n-1].first << " " << (sum+0.00)/cou << "\n";
 
     return 0;
 }
