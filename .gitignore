@@ -2,5 +2,5 @@
 *.o
 a
 
-# g++ -0 a name.cpp
+# g++ -o a name.cpp
 # ./a
