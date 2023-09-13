@@ -1,6 +1,6 @@
 *.exe
 *.o
-a
+a.out
 
 # g++ -o a name.cpp
 # ./a
