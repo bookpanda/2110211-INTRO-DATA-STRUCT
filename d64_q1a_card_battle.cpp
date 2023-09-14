@@ -1,56 +1,45 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <map>
-
+#include<bits/stdc++.h>
 using namespace std;
 
-vector<int> card[500112];
-int main()
-{
-    ios_base::sync_with_stdio(false); cin.tie(0);
+map<int,int> toe;
+int main() {
+    std::ios_base::sync_with_stdio(false); std::cin.tie(0); 
     int n,m;
-    int o[500112];
-    map<int, int> toe;
+
     cin >> n >> m;
 
-    for(int i=0;i<n;i++) {
-        int a;
-        cin >> a;
-        if(toe.find(a) == toe.end())
-            toe[a] = 0;
-        toe[a] += 1;
-    }
+    while(n--) {
+        int power;
+        cin >> power;
+        toe[power] += 1;
+    } 
+    // for(auto x: toe){
+    //     cout << "toe[" << x.first << "] = " << x.second << endl;
+    // }
+    int ans=0;
+    bool lose = false;
     for(int i=0;i<m;i++) {
-        cin >> o[i];
-        for(int j=0;j<o[i];j++) {
-            int a;
-            cin >> a;
-            card[i].push_back(a);
-        }
-    }
-//    for(auto x: toe){
-//        cout << x.first << " " << x.second << endl;
-//    }
-    int flag = 0;
-    for(int i=0;i<m;i++) {
-        for(int j=0;j<o[i];j++) {
-            auto it = toe.upper_bound(card[i][j]);
-            if(it != toe.end()) {
-//                cout << "use " << it->first << endl;
+        int amou;
+        // cout << "round  " << i << endl;
+        cin >> amou;
+        while(amou--) {
+            int power;
+            cin >> power;
+            auto it = toe.upper_bound(power);
+            // cout << "it " << it->first << " , " <<  it->second << endl;
+            if(it != toe.end() && it->second > 0) {
                 it->second -= 1;
-                if(it->second == 0)
-                    toe.erase(it->first);
-            } else {
-                cout << i+1 << endl;
-                flag = 1;
-            }
-            if(flag==1) break;
-        }
-        if(flag==1) break;
-    }
-    if(flag==0)
-    cout << m+1 << endl;
+                if(it->second == 0) toe.erase(it);
 
-    return 0;
+                // cout << "use " << it->first << endl;
+                // cout << "now have " << it->second << endl;
+            } else {
+                lose = true;
+            }
+        }
+        if(!lose) {
+            ans++;
+        }
+    }
+    cout << ans+1 << endl;
 }
