@@ -18,9 +18,9 @@ void CP::vector<T>::insert(iterator position,iterator first,iterator last) {
   // for(auto it=position;it!=end();it++) {
   //   *(it+size) = *it;
   // }
-  for(int i=0;i<mCap;i++) {
-    std::cout << mData[i] << " ";
-  } std::cout << "\n";
+  // for(int i=0;i<mCap;i++) {
+  //   std::cout << mData[i] << " ";
+  // } std::cout << "\n";
 
   int idx = st;
   for(auto it=first;it!=last;it++) {
