@@ -9,52 +9,49 @@
 template <typename T>
 void CP::vector_some_move<T>::insert(int index, std::vector<T> &value) {
   // Your code here
-  //1 if index is begin of vector, make new vector
-  //2 if 
-  // std::vector<int> d;
-  // d.resize
-
+  int i = std::lower_bound(aux.begin(), aux.end(), index) - aux.begin();
+  // if(i == mData.size())
+  //   i--;
   int vsize = value.size();
 
-  int i = std::upper_bound(aux.begin(), aux.end(), index) - aux.begin();
-  if(i == mData.size())
-    i--;
+  if(index == 0) {
+    mData.insert(mData.begin(), value);
+    aux.insert(aux.begin(), value.size());
+    i++;
+  } else if(index == mSize) {
+    std::cout << "i = " << i << "\n";
+    mData.push_back(value);
+    aux.push_back(aux.back());
+    i++;
+  } else if(mData[i].size() < 1870){ //use same vector
+    int idx = i>0 ? index - aux[i-1] : index; 
+    // std::cout << "idx: " << idx << "\n";
+    mData[i].insert(mData[i].begin()+idx, value.begin(), value.end());
+    // aux[i] += vsize;
+  } else { //new vector, the over part of current one also to be behind value
+    int idx = i>0 ? index - aux[i-1] : index; 
+    std::vector<T> tmp;
+    for(auto it=mData[i].begin()+idx;it!=mData[i].end();it++){
+      tmp.push_back(*it);
+    }
+    mData[i].erase(mData[i].begin()+idx, mData[i].end());
+    mData.insert(mData.begin()+i+1, value);
+    mData.insert(mData.begin()+i+2, tmp);
 
-  // for(auto x: aux) {
-  //   std::cout << x << " ";
-  // } std::cout << "\n";
-
-  if (i > 0)
-    index -= aux[i - 1];
-  mData[i].resize(vsize + mData[i].size());
-  int newsize = mData[i].size();
-  // std::cout << "newsize " << newsize << "\n";
-
-  for(int j=newsize-1;j>=index+vsize;j--) {
-    mData[i][j] = mData[i][j-vsize];
+    aux[i] -= tmp.size();
+    aux.insert(aux.begin()+i+1, aux[i]);
+    aux.insert(aux.begin()+i+2, aux[i]+tmp.size());
+    i++;
   }
-  // for(auto x: mData[i]) {
-  //   std::cout << x << " ";
-  // } std::cout << "\n";
-  
-  for(int j=index;j<index+vsize;j++) {
-    mData[i][j] = value[j-index];
-  }
-  // for(auto x: mData[i]) {
-  //   std::cout << x << " ";
-  // } std::cout << "\n";
 
-  for(int j=i;j<mData.size();j++) {
-    aux[j] += vsize;
+  // i++;
+  while(i<aux.size()) {
+    aux[i] += vsize;
+    i++;
   }
-  mSize += vsize;
-  mCap += vsize;
+  mSize+=vsize;
+  mCap+=vsize;
 
-  
-  // for(auto x: aux) {
-  //   std::cout << x << " ";
-  // } std::cout << "\n";
-    // return mData[i][idx];
 }
 
 #endif
