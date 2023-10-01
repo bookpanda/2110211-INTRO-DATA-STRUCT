@@ -4,22 +4,24 @@
 template <typename T>
 void CP::vector<T>::rotate(iterator first, iterator last, size_t k) {
   //write your code here
-  int st = first - begin();
-  int ed = last - begin();
-  int size = ed-st;
-  T arr[k];
-  int idx = 0;
-  for(int i=st;i<st+k;i++) {
-    arr[idx] = mData[i];
-    idx++;
+  CP::vector<T> temp;
+  for(auto it=first+k;it!=last;it++) {
+    temp.push_back(*it);
+    // std::cout << "TEMP " << *it << "\n";
   }
-  for(int i=st;i<ed-k;i++) {
-    mData[i] = mData[i+k];
+  int id = 0;
+  for(auto it=first+k-1;it>=first;it--) {
+    // std::cout << *(last-id) << "->" << *it << "\n";
+    *(last-1-id) = *it;
+    id++;
+    // for(int i=0;i<mSize;i++) {
+    //   std::cout << mData[i] << " ";
+    // } std::cout << "\n"; 
   }
-  idx = 0;
-  for(int i=ed-k;i<ed;i++){
-    mData[i] = arr[idx];
-    idx++;
+  id = 0;
+  for(auto it=first;it!=last-k;it++) {
+    *(it) = temp[id];
+    id++;
   }
 }
 

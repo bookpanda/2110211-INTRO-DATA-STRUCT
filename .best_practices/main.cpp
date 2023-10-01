@@ -30,4 +30,8 @@ int main() {
     // a.push_back(1);
     // s.insert(a);
     s2.insert({1});
+
+    // int sz = v.size();
+    // for(int i=0;i<vz;i++)
+    for(int i=0;i<v.size();i++) {}
 }

@@ -1,51 +1,46 @@
 #include<bits/stdc++.h>
-
 using namespace std;
 
 int main() {
-    std::ios_base::sync_with_stdio(false); std::cin.tie(0);
+    std::ios_base::sync_with_stdio(false); std::cin.tie(0); 
     int n,w;
     queue<int> q;
     vector<int> v;
-    vector<int> med;
-    vector<int> ans;
+    q.push(-1);
 
     cin >> n >> w;
-
-    for(int i=0;i<n;i++) {
+    if(w == n) w--;
+    int k = (w)/2;
+    n -= w;
+    while(w--) {
         int a;
         cin >> a;
+        // s.insert(a);
         v.push_back(a);
+        q.push(a);
     }
+    sort(v.begin(), v.end());
+    while(n--) {
+        int a;
+        cin >> a;
+        // s.insert(a);
+        auto fit = lower_bound(v.begin(), v.end(), a);
+        v.insert(fit, a);
+        // auto it1 = s.find(q.front());
 
-    for(int i=0;i<w;i++) {
-        med.push_back(v[i]);
-        q.push(v[i]);
+        auto it1 = lower_bound(v.begin(), v.end(), q.front());
+        if(q.front() != -1 && it1 != v.end())
+            v.erase(it1);
+            // s.erase(it1);
+        q.push(a);
+        q.pop();
+        // cout << "\n";
+        // for(auto x: v) {
+        //     cout << x << " ";
+        // } cout << "\n";
+        // auto it = s.begin();
+        // std::advance(it, k);
+        // cout << *(it) << " ";
+        cout << v[k] << " ";
     }
-    sort(med.begin(), med.end());
-
-    if(n==w) {
-        cout << med[w/2] << " ";
-    }
-    else{
-        for(int i=w;i<n;i++) {
-            auto it = lower_bound(med.begin(), med.end(), v[i]);
-            med.insert(it, v[i]);
-    //        for(auto x: med) {
-    //        cout << x << " ";
-    //        }
-    //        cout << endl;
-            ans.push_back(med[w/2]);
-            auto it2 = lower_bound(med.begin(), med.end(), q.front());
-            med.erase(it2);
-            q.pop();
-            q.push(v[i]);
-        }
-
-        for(auto x: ans) {
-            cout << x << " ";
-        }
-    }
-
 }
-
