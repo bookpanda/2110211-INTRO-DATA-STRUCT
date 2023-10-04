@@ -11,11 +11,6 @@ int main() {
     std::cin >> element;
     q.push(element);
   }
-  // q.push(1);
-  q.reverse();
-  q.push(3);
-  q.reverse();
-  q.push(2);
   q.reverse();
   while (!q.empty()) {
     std::cout << q.front() << " ";

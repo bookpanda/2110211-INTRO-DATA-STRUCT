@@ -1,56 +1,48 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-vector<int> v;
 int main() {
     std::ios_base::sync_with_stdio(false); std::cin.tie(0);
-    int n,m,st;
-    vector<pair<int,int> > sv;
+    int n,m,r;
+    vector<pair<int,int> > v;
+    vector<int> qs;
 
-    cin >> n >> m >> st;
+    cin >> n >> m >> r;
     while(n--) {
-        int day, r;
-        cin >> day >> r;
-        sv.push_back(make_pair(day, r));
+        int d, s;
+        cin >> d >> s;
+        v.push_back({d, s});
     }
-    sort(sv.begin(), sv.end());
-    queue<pair<int,int> > q;
-    for(auto x: sv) {
-        q.push(x);
-    }
-
-    int rate = st;
-    int sum = 0;
-    for(int i=0;i<100010;i++) {
-        if(!q.empty() && q.front().first == i) {
-            rate = q.front().second;
-            q.pop();
+    sort(v.begin(), v.end());
+    int idx=0;
+    for(int i=0;i<=100112;i++) {
+        if(v.size()>0 && v[idx].first == i) {
+            r = v[idx].second;
+            idx++;
         }
-        v.push_back(sum+rate);
-        sum += rate;
-        // cout << "day " << sum << "\n";
+        if(i>0)
+            qs.push_back(qs.back()+r);
+        else
+            qs.push_back(r);
     }
-
-    // for(int i=0;i<50;i++) {
-    //     cout << "day " << i << ": " << v[i] << "\n";
-    // }
 
     while(m--) {
-        int p,sc;
-        cin >> p >> sc;
-
-        auto it = lower_bound(v.begin(), v.end(), p);
-        int day = it - v.begin();
-
-        // cout << "\nDAY : " << day << endl;
-        if(day > sc) {
-            int cost = v[sc];
-            // cout << "SCAM, cost : " << cost << endl;
-            auto it2 = lower_bound(v.begin()+sc, v.end(), p+cost);
-            cout << it2 - v.begin() << " ";
+        int price, scam;
+        cin >> price >> scam;
+        auto it1 = lower_bound(qs.begin(), qs.end(), price);
+        int idx = it1 - qs.begin();
+        if(idx <= scam) {
+            cout << idx << " ";
         } else {
-            cout << day << " ";
+            int saved = qs[scam];
+            auto it2 = lower_bound(qs.begin(), qs.end(), price + saved);
+            int idx2 = it2 - qs.begin();
+            cout << idx2 << " ";
         }
-        // cout << endl;
+
     }
+
+    // for(auto x: qs) {
+    //     cout << x << " ";
+    // }
 }
