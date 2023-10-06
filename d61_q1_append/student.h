@@ -4,66 +4,59 @@
 namespace CP {
     template<typename T>
     void stack<T>::appendStack(stack<T> s) {
-        stack<T> temp, temp2;
+        stack<T> s1, s2;
         while(!s.empty()) {
-            temp.push(s.top());
+            s1.push(s.top());
             s.pop();
         }
-        while(!this->empty()) {
-            temp2.push(this->top());
-            this->pop();
+        while(!empty()) {
+            s2.push(top());
+            pop();
         }
-        while(!temp.empty()) {
-            this->push(temp.top());
-            temp.pop();
+        while(!s1.empty()) {
+            push(s1.top());
+            s1.pop();
         }
-        while(!temp2.empty()) {
-            this->push(temp2.top());
-            temp2.pop();
-        }    
+        while(!s2.empty()){
+            push(s2.top());
+            s2.pop();
+        }
     }
 
     template<typename T>
     void stack<T>::appendQueue(queue<T> q) {
-        stack<T> temp2;
-        stack<T> temp;
-
+        stack<T> s, s2;
+        while(!empty()){
+            s.push(top());
+            pop();
+        }
         while(!q.empty()) {
-            temp.push(q.front());
+            s2.push(q.front());
             q.pop();
         }
-        while(!this->empty()) {
-            temp2.push(this->top());
-            this->pop();
+        while(!s2.empty()) {
+            push(s2.top());
+            s2.pop();
         }
-        while(!temp.empty()) {
-            this->push(temp.top());
-            temp.pop();
-        }
-        while(!temp2.empty()) {
-            this->push(temp2.top());
-            temp2.pop();
+        while(!s.empty()){
+            push(s.top());
+            s.pop();
         }
     }
 
     template<typename T>
     void queue<T>::appendStack(stack<T> s) {
-        while(!s.empty()) {
-            this->push(s.top());
-            s.pop();
-        }
+       while(!s.empty()){
+        push(s.top());
+        s.pop();
+       }
     }
 
     template<typename T>
     void queue<T>::appendQueue(queue<T> q) {
-        queue<T> temp;
-         while(!q.empty()) {
-            temp.push(q.front());
+        while(!q.empty()) {
+            push(q.front());
             q.pop();
-        }
-        while(!temp.empty()) {
-            this->push(temp.front());
-            temp.pop();
         }
     }
 }

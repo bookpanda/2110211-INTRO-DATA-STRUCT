@@ -6,28 +6,27 @@ using namespace std;
 template <typename T>
 std::vector<std::vector<T> > CP::stack<T>::distribute(size_t k) const {
   //write your code here
-  vector<vector<T> > v;
-  int sizeperv = mSize/k;
-  int rtil = mSize - k*sizeperv;
-
-  int vidx=0;
-  vector<T> a;
-  v.push_back(a);
-  for(int i=mSize-1;i>=0;i--) {
-    v[vidx].push_back(mData[i]);
-    if(vidx < rtil) {
-      if(v[vidx].size() == sizeperv+1) {
-        vidx++;
-        vector<T> a;
-        v.push_back(a);
-      } 
-    } else {
-      if(v[vidx].size() == sizeperv) {
-        vidx++;
-        vector<T> a;
-        v.push_back(a);
-      } 
+  std::vector<std::vector<T> > v;
+  int idx=mSize-1;
+  int sz = mSize / k;
+  int r = mSize - sz*k;
+  for(int i=0;i<k;i++) {
+    std::vector<T> a;
+    for(int j=0;j<sz;j++) {
+      if(idx >=0)
+        a.push_back(mData[idx]);
+      idx--;
     }
+    if(r){
+      a.push_back(mData[idx]);
+      idx--;
+      r--;
+    }
+    // for(auto x: a) {
+    //   std::cout << x << " ";
+    // } std::cout << "\n";
+
+    v.push_back(a);
   }
 
   return v;
