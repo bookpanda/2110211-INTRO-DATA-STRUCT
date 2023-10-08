@@ -4,24 +4,29 @@
 template <typename T>
 void CP::vector<T>::rotate(iterator first, iterator last, size_t k) {
   //write your code here
-  CP::vector<T> temp;
-  for(auto it=first+k;it!=last;it++) {
-    temp.push_back(*it);
-    // std::cout << "TEMP " << *it << "\n";
+  CP::vector<T> v;
+  int cou = 0;
+  int sz = last-first;
+  for(auto it=first;it!=last;it++) {
+    v.push_back(*it);
+    cou++;
+    if(cou == k) break;
   }
-  int id = 0;
-  for(auto it=first+k-1;it>=first;it--) {
-    // std::cout << *(last-id) << "->" << *it << "\n";
-    *(last-1-id) = *it;
-    id++;
-    // for(int i=0;i<mSize;i++) {
-    //   std::cout << mData[i] << " ";
-    // } std::cout << "\n"; 
+  // std::cout << "\nstore\n";
+  // for(auto x: v){
+  //   std::cout << x << " ";
+  // } std::cout << "\n";
+  int idx=0;
+  for(auto it=first;it!=first+(sz-k);it++) {
+    // std::cout << *it << " -> " << *(it+k+idx) <<  "\n";
+    *it = *(it+k);
   }
-  id = 0;
-  for(auto it=first;it!=last-k;it++) {
-    *(it) = temp[id];
-    id++;
+
+  idx=0;
+  for(auto it=first+(sz-k);it!=last;it++) {
+    // std::cout << *it << " => " << v[(idx)%v.size()] <<  "\n";
+    *it = v[(idx)%v.size()];
+    idx++;
   }
 }
 

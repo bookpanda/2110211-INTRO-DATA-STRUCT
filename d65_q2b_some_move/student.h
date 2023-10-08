@@ -9,42 +9,42 @@
 template <typename T>
 void CP::vector_some_move<T>::insert(int index, std::vector<T> &value) {
   // Your code here
-  auto it = lower_bound(aux.begin(), aux.end(), index); //will be in the right vector
-  int id = it - aux.begin();
-  if(index == 0) {
-    mData.insert(mData.begin(), value);
-    aux.insert(aux.begin(), value.size());
-    id++;
-  } else if(index == mSize) {//id = mSize-1
-    mData.push_back(value);
-    aux.push_back(aux.back());
-    id++;
-  } else if(mData[id].size() < 1800) { //use same vector
-    int pos = id==0 ? index : index - aux[id-1];
-    mData[id].insert(mData[id].begin()+pos, value.begin(), value.end());
-  } else { //new vector
-    int pos = id==0 ? index : index - aux[id-1];
+  auto it = std::lower_bound(aux.begin(), aux.end(), index);
+  int i = it - aux.begin();
+  // if(index == 0) {
+  //   mData.insert(mData.begin(), value);
+
+  // } else if(index == mSize) {
+  //   mData.push_back(value);
+  // } else
+  if(i < 1800) {//new vector
+    int prev = i > 0 ? aux[i-1] : 0;
+    int pos = index - prev;
+    int sz = mData[i].size();
+    int afterpos = sz-pos;
+    aux[i] -= afterpos;
+    mData.insert(mData.begin() + i+1, value);
+    aux.insert(aux.begin() + i+1, aux[i]);
     std::vector<T> temp;
-    for(int i=pos;i<mData[id].size();i++) {
-      temp.push_back(mData[id][i]);
+    for(int a=pos;a<mData[i].size();a++) {
+      temp.push_back(mData[i][a]);
     }
-    mData[id].erase(mData[id].begin()+pos, mData[id].end());
-    mData.insert(mData.begin()+id+1, value);
-    mData.insert(mData.begin()+id+2, temp);
-
-    aux[id] -= temp.size();
-    aux.insert(aux.begin()+id+1, aux[id]); 
-    aux.insert(aux.begin()+id+2, aux[id]+temp.size());
-    id++;
+    mData.insert(mData.begin() + i+2, temp);
+    aux.insert(aux.begin() + i+2, aux[i]+afterpos);
+    mData[i].erase(mData[i].begin() + pos, mData[i].end());
+    i++;
+  } else {//current vector
+    int prev = i > 0 ? aux[i-1] : 0;
+    int pos = index - prev;
+    mData[i].insert(mData[i].begin() + pos, value.begin(), value.end());
   }
 
-  while(id < aux.size()) {
-    aux[id] += value.size();
-    id++;
+  while(i<aux.size()) {
+    aux[i] += value.size();
+    i++;
   }
-
-  mSize += value.size();
-  mCap += value.size();
+  mCap+=value.size();
+  mSize+=value.size();
 }
 
 #endif
