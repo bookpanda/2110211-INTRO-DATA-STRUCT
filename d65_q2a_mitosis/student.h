@@ -4,39 +4,23 @@
 
 template <typename T>
 void CP::stack<T>::mitosis(int a, int b)
-{
-    // expand(mSize + (b-a+1));
-    T *newData = new T[mSize+(b-a+1)];
-
-    for(int i=0;i<mSize-b-1;i++) {
-        newData[i] = mData[i];
+{   
+    int sz = mSize + (b-a+1);
+    if(sz > mCap)
+        expand(sz);
+    int id1 = mSize-1-b;
+    int id2 = mSize-1-a;
+    mSize = sz;
+    for(int i=mSize-1;i>=id2+b-a+2;i--) {
+        mData[i] = mData[i-(b-a+1)];
     }
-    // for(int j=0;j<mSize+(b-a+1);j++) {
-    //     std::cout << newData[j] << " " ;
-    // } std::cout << "\n";
-    int idx = mSize-b-1;
-    for(int i=mSize-b-1;i<mSize-a;i++) {
-        newData[idx] = mData[i];
-        idx++;
-        newData[idx] = mData[i];
-        idx++;
-        // for(int j=0;j<mSize+(b-a+1);j++) {
-        //     std::cout << newData[j] << " " ;
-        // } std::cout << "\n";
+    int j=id2+(b-a+1);
+    for(int i=id2;i>=id1;i--) {
+        mData[j] = mData[i];
+        j--;
+        mData[j] = mData[i];
+        j--;
     }
-
-    for(int i=mSize-a;i<mSize;i++) {
-        newData[idx] = mData[i];
-        idx++;
-        // for(int j=0;j<mSize+(b-a+1);j++) {
-        //     std::cout << newData[j] << " " ;
-        // } std::cout << "\n";
-    }
-
-    delete [] mData;
-    mData = newData;
-    mSize += b-a+1;
-    mCap += b-a+1;
 }
 
 #endif

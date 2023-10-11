@@ -1,52 +1,47 @@
 #include<bits/stdc++.h>
-
 using namespace std;
 
-set<int> dp[500010];
 int main() {
     std::ios_base::sync_with_stdio(false); std::cin.tie(0);
     int n,m;
-    int power[500010], type[500010];
-    multiset<int> ans;
+    set<pair<int,int> > s;
+    map<int, int> mp;
+    vector<int> pw, type;
 
     cin >> n >> m;
-    for(int i=0;i<m;i++)
-        ans.insert(1);
-    for(int i=0;i<n;i++) {
-        dp[i].insert(-1);
+    for(int i=0;i<m;i++) {
+        mp[i] = 1;
+        s.insert({1,i});
     }
-
     for(int i=0;i<n;i++) {
-        cin >> power[i];
+        int a;
+        cin >> a;
+        pw.push_back(a);
     }
-
     for(int i=0;i<n;i++) {
-        cin >> type[i];
+        int a;
+        cin >> a;
+        type.push_back(a);
     }
-    // for(auto i: ans){
-    //         cout << i << " "; 
-    //     }
-    //     cout << "\n";
-
-
     for(int i=0;i<n;i++) {
-        auto itr = ans.find(-1* (*dp[type[i]].begin()));
-        if(itr != ans.end()) {
-            ans.erase(itr);
+        if(mp.find(type[i]) != mp.end()) {
+            // cout << "found type\n";
+            if(pw[i] > mp[type[i]]) {
+                // cout << "more pw\n";
+                auto it = s.find({mp[type[i]], type[i]});
+                if(it != s.end()) {
+                    // cout << "in set\n";
+                    s.erase(it);
+                    s.insert({pw[i], type[i]});
+                }
+                mp[type[i]] = pw[i];
+            }
         }
-        // cout << "erase  " << -1* (*dp[type[i]].begin()) << "\n";
-        dp[type[i]].insert(-1*power[i]);
-        set<int>::iterator it = dp[type[i]].begin();
-
-        // cout << "insert " << -1*(*it) << "\n";
-        ans.insert(-1* (*it));
-        // for(auto i: ans){
-        //     cout << i << " "; 
-        // }
-        // cout << "\n";
-
-        cout << *(ans.begin()) << " ";
+        // for(auto x: s) {
+        //     cout << "{" << x.first << ", " << x.second << "} ";
+        // } cout << "\n";
+        auto it = s.begin();
+        cout << it->first << " ";
     }
-
 
 }
