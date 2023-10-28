@@ -97,6 +97,7 @@
         "numeric": "cpp",
         "random": "cpp",
         "algorithm": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "functional": "cpp"
     }
 }

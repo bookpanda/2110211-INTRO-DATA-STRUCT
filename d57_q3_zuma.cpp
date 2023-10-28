@@ -21,13 +21,14 @@ int main(){
     while(l>=0 && r<=n && arr[l] == arr[r]) {
         while(arr[l] == arr[l-1] && l-1>=0) l--;
         while(arr[r] == arr[r+1] && r+1<=n) r++;
-        // cout << "r = " << r << " l = " << l << "\n";
+        // cout << "l = " << l << "(" << arr[l] << "), " << " r = " << r << "(" << arr[r] << ")" << "\n";
 
         if(r-l+1 - offset < 3) break;
 
-        offset += r-l+1;
+        offset = r-l+1;
         l--;
         r++;
+        // cout << "new l = " << l << "(" << arr[l] << " new r = " << r << "(" << arr[r] << ")\n";
     }
     // cout << "ledft << " << l << " right " << r << "\n";
     for(int i=0;i<=n;i++) {
