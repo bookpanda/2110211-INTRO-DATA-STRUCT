@@ -2,5 +2,9 @@
 using namespace std;
 
 int main() {
-    cout << (-6) % 5;
+    int k = -4;
+    k %= 3;
+    cout << k << "\n";
+    cout << (-9384) % 1000;
+    cout << (-4) % 3;
 }

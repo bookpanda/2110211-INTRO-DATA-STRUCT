@@ -8,16 +8,14 @@
 template <typename T,typename Comp >
 int CP::priority_queue<T,Comp>::height() const {
   //write your code here
-  if(mSize == 0) return -1;
-  int cou=0;
-  int a = 1;
-  int b = mSize;
-  while(b > 0) {
-    b -= a;
-    a *= 2;
-    cou++;
+  if(mSize==0) return -1;
+  int idx=0;
+  int lvl=0;
+  while(idx<mSize) {
+    idx = (idx*2)+1;
+    lvl++;
   }
-  return cou-1;
+  return lvl-1;
 }
 
 #endif
