@@ -7,31 +7,31 @@
 
 template <typename T,typename Comp >
 void CP::priority_queue<T,Comp>::fixUp(size_t idx) {
-   T tmp = mData[idx];
-   while(idx > 0) {
+    T tmp = mData[idx];
     int idx2 = (idx-1)/4;
-    if(mLess(tmp, mData[idx2])) break;
-    mData[idx] = mData[idx2];
-    idx = idx2;
-   }
-   mData[idx] = tmp;
+    while(idx > 0) {
+        if(mLess(tmp, mData[idx2])) break;
+        mData[idx] = mData[idx2];
+        idx = idx2;
+        idx2 = (idx2-1)/4;
+    }
+    mData[idx] = tmp;
 
 }
 
 template <typename T,typename Comp >
 void CP::priority_queue<T,Comp>::fixDown(size_t idx) {
     T tmp = mData[idx];
-    int idx2 = (idx*4)+1;
-    while(idx2 < mSize) {
-        int finalidx = idx2;
-        if(idx2+1 < mSize && mLess(mData[finalidx], mData[idx2+1])) finalidx = idx2+1;
-        if(idx2+2 < mSize && mLess(mData[finalidx], mData[idx2+2])) finalidx = idx2+2;
-        if(idx2+3 < mSize && mLess(mData[finalidx], mData[idx2+3])) finalidx = idx2+3;
+    while((4*idx)+1 < mSize) {
+        int cidx = (idx*4)+1;
+        int idx2 = cidx;
+        if(cidx+1<mSize && mLess(mData[idx2], mData[cidx+1])) idx2 = cidx+1;
+        if(cidx+2<mSize && mLess(mData[idx2], mData[cidx+2])) idx2 = cidx+2;
+        if(cidx+3<mSize && mLess(mData[idx2], mData[cidx+3])) idx2 = cidx+3;
 
-        if(mLess(mData[finalidx], tmp)) break;
-        mData[idx] = mData[finalidx];
-        idx = finalidx;
-        idx2 = (idx*4)+1;
+        if(mLess(mData[idx2], tmp)) break;
+        mData[idx] = mData[idx2];
+        idx = idx2;
     }
     mData[idx] = tmp;
 }

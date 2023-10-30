@@ -7,15 +7,11 @@
 template <typename T>
 void CP::queue<T>::move_to_front(size_t pos) {
     //your code here
-    int ed = (mFront+pos) % mCap;
-    int save = mData[ed];
-    for(int i=pos-1;i>=0;i--) {
-        // std::cout << mData[(mFront+i+1)%mCap] << " to " << mData[(mFront+i)%mCap] << "\n";
-        mData[(mFront+i+1)%mCap] = mData[(mFront+i)%mCap];
+    T tmp = mData[(mFront+pos)%mCap];
+    for(int i=pos;i>0;i--) {
+        mData[(mFront+i)%mCap] = mData[(mFront+i-1)%mCap];
     }
-    mData[mFront] = save;
-    // std::cout <<  mData[mFront] << " to " << save << "\n";
-
+     mData[(mFront+0)%mCap] = tmp;
 }
 
 #endif

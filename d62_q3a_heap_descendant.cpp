@@ -3,24 +3,20 @@ using namespace std;
 
 int main() {
     int n,a;
-    queue<int> q, ans;
-
     cin >> n >> a;
+    queue<int> q, ans;
     q.push(a);
-    int cou = 0;
-    while(!q.empty()) {
-        cou++;
+    while(!q.empty()){
+        // cout << q.front() << " ";
         ans.push(q.front());
-        if((q.front()*2)+1 < n)
-            q.push((q.front()*2)+1);
-        if((q.front()*2)+2 < n)
-            q.push((q.front()*2)+2);
+        if((q.front()*2)+1 < n) q.push((q.front()*2)+1);
+        if((q.front()*2)+2 < n) q.push((q.front()*2)+2);
         q.pop();
     }
-
-    cout << cou << "\n";
-    while(!ans.empty()){
+    cout << ans.size() << "\n";
+    while(!ans.empty()) {
         cout << ans.front() << " ";
         ans.pop();
     }
+
 }
