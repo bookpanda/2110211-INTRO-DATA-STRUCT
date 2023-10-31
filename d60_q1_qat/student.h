@@ -7,11 +7,8 @@ T CP::queue<T>::operator[](int idx) {
   //write something here
   //
   // you need to return something
-  int i;
-  if(idx>-1) i = (mFront+idx) % mCap;
-  else  i = (mFront+mSize+idx) % mCap;
-
-  return mData[i];
+  if(idx < 0) idx = (idx+mSize)%mSize;
+  return mData[(mFront+idx)%mCap];
 }
 
 #endif

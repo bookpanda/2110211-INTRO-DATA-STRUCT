@@ -10,16 +10,18 @@
 
 template <typename T>
 std::vector< CP::queue<T> > CP::queue<T>::split_queue(int k) {
-    std::vector<CP::queue<T> > qs(k);
     // code here
-    int idx=0;
-    while(!this->empty()) {
-        qs[idx].push(this->front());
-        idx++;
-        idx %= k;
-        this->pop();
+    std::vector<CP::queue<T> > ans(k);
+    for(int i=0;i<mSize;i++) {
+        ans[i%k].push(mData[(mFront+i)%mCap]);
     }
-    return qs;
+    delete [] mData;
+    int cap = 1;
+    mData = new T[cap]();
+    mCap = cap;
+    mSize = 0;
+    mFront = 0;
+    return ans;
 }
 
 #endif
