@@ -143,9 +143,7 @@ public:
   }
 
   bool operator<(const student& other) const {
-    int s1 = sum_score();
-    int s2 = other.sum_score();
-    if(s1!=s2) return s1 < s2;
+    if(sum_score() != other.sum_score()) return sum_score() < other.sum_score();
     return name > other.name;
   }
 

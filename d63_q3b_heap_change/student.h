@@ -7,12 +7,9 @@ template <typename T,typename Comp>
 void CP::priority_queue<T,Comp>::change_value(size_t pos,const T& value) {
   //write your code here
   mData[pos] = value;
-  int pidx = (pos-1)/2;
-  if(pidx>=0 && mLess(mData[pidx], mData[pos])) {
-    fixUp(pos);
-  } else {
-    fixDown(pos);
-  }
+  int fidx = (pos-1)/2;
+  if(fidx>=0 && mLess(mData[fidx], mData[pos])) fixUp(pos);
+  else fixDown(pos);
 }
 
 #endif

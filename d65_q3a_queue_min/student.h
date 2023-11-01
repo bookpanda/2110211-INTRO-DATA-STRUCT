@@ -10,15 +10,15 @@ T CP::queue<T>::min_element(std::vector<size_t> pos,Comp comp) const {
   //your code here
   T min;
   bool isset = false;
-  for(int i=0;i<pos.size();i++) {
-    if(pos[i] >= mSize) continue;
-    int idx = (mFront+pos[i]) % mCap;
-    if(!isset) {
-      min = mData[idx];
-      isset = true;
+  for(auto x: pos) {
+    if(x >= mSize) continue;
+    // std::cout << min << " " << mData[(mFront+x)%mCap] << "\n";
+    if(isset) {
+      if(comp(mData[(mFront+x)%mCap], min)) min = mData[(mFront+x)%mCap];
     }
-    if(comp(mData[idx],min)) {
-      min = mData[idx];
+    else {
+      min = mData[(mFront+x)%mCap];
+      isset = true;
     }
   }
   //should return something
