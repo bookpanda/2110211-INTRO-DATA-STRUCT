@@ -4,7 +4,7 @@
 using namespace std;
 
 static bool init = false;
-static vector<int> ranks;
+static map<int, int> mp;
 
 using namespace std;
 
@@ -12,22 +12,32 @@ template <typename T,typename Comp>
 size_t CP::priority_queue<T,Comp>::get_rank(size_t pos) const {
   //write your code here
   if(!init) {
-    map<int, int> mp;
-    std::vector<pair<T, int> > v(mSize);
+    std::vector<std::pair<int,int> > v;
     for(int i=0;i<mSize;i++) {
-      v[i] = {mData[i], i};
-    }
+      v.push_back({mData[i], -i});
+    } 
     sort(v.begin(), v.end());
     if(mLess(T(0), T(1))) reverse(v.begin(), v.end());
-    ranks.resize(mSize);
-    int j=0;
-    for(int i=0;i<mSize;i++) {
-      if(v[j].first != v[i].first) j = i;
-      ranks[v[i].second] = j;
+    int prev=-1;
+    int mini=0;
+    for(int i=0;i<v.size();i++) {
+      // cout << "(" << v[i].first << ", " << v[i].second << ")\n";
+      if(prev == v[i].first) {
+        mp[-v[i].second] = min(mini, i);
+      } else {
+        mp[-v[i].second] = i;
+        mini = i;
+      }
+
+      prev = v[i].first;
     }
+    // for(auto x: mp) {
+    //   cout << x.first << ", " << x.second << "\n";
+    // }
     init = true;
   }
-  return ranks[pos];
+  return mp[pos];
+  
 }
 
 #endif

@@ -11,15 +11,16 @@ bool CP::priority_queue<T, Comp>::check() {
   std::queue<int> q;
   q.push(0);
   while(!q.empty()) {
-    int i = q.front();
-    if((2*i+1 < mSize && mLess(mData[i], mData[2*i+1])) || (2*i+2 < mSize && mLess(mData[i], mData[2*i+2]))) return false;
-    if(2*i+1 < mSize)
-      q.push(2*i+1);
-    if(2*i+2 < mSize)
-      q.push(2*i+2);
+    int a = q.front();
+    int c1 = a*2 + 1;
+    int c2 = a*2 + 2;
+    if(c1<mSize && mLess(mData[a], mData[c1])) return false;
+    if(c2<mSize && mLess(mData[a], mData[c2])) return false;
+    if(c1 < mSize) q.push(c1);
+    if(c2 < mSize) q.push(c2);
     q.pop();
   }
-
+  
   return true;
 }
 

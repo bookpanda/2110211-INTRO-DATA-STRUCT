@@ -9,18 +9,20 @@ template <typename T,typename Comp >
 std::vector<T> CP::priority_queue<T,Comp>::at_level(size_t k) const {
   //write your code here
   //can include anything
-  int st = 1;
-  while(k--) st *= 2;
-  int sz = st;
-  st -= 1;
-  if(st > mSize) return {};
-  std::vector<T> r, ans;
-  for(int i=0;i<sz;i++) {
-    if(i+st >= mSize) break;
-    r.push_back(mData[i+st]);
+  std::vector<T> v;
+  int sz=1;
+  for(int i=0;i<k;i++) {
+    sz*=2;
   }
-  sort(r.begin(), r.end(), mLess);
-  for(int i=r.size()-1;i>=0;i--) ans.push_back(r[i]);
+  int fidx = sz-1;
+  for(int i=0;i<sz;i++) {
+    if(i+fidx < mSize)
+    v.push_back(mData[i+fidx]);
+  }
+  sort(v.begin(), v.end(), mLess);
+  std::vector<T> ans(v.size());
+  int idx=0;
+  for(int i=v.size()-1;i>=0;i--) ans[idx++] = v[i];
   return ans;
 }
 
