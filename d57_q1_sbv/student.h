@@ -19,7 +19,7 @@ const T& CP::stack<T>::top() const {
 template <typename T>
 void CP::stack<T>::push(const T& element) {
   //write your code here
-  v.push_back(element);
+  return v.push_back(element);
 }
 
 template <typename T>

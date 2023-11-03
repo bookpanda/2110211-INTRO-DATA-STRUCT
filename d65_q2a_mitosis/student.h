@@ -5,22 +5,36 @@
 template <typename T>
 void CP::stack<T>::mitosis(int a, int b)
 {   
-    int sz = mSize + (b-a+1);
-    if(sz > mCap)
-        expand(sz);
-    int id1 = mSize-1-b;
-    int id2 = mSize-1-a;
-    mSize = sz;
-    for(int i=mSize-1;i>=id2+b-a+2;i--) {
-        mData[i] = mData[i-(b-a+1)];
-    }
-    int j=id2+(b-a+1);
-    for(int i=id2;i>=id1;i--) {
-        mData[j] = mData[i];
-        j--;
-        mData[j] = mData[i];
-        j--;
-    }
+   int sz = b-a+1;
+   if (mSize + sz > mCap) expand(mCap * 2);
+   T tmp[sz], tai[a];
+   for(int i=0;i<sz;i++) {
+    tmp[i] = mData[mSize-1-b+i];
+   }
+   for(int i=0;i<a;i++) {
+    tai[i] = mData[mSize-a+i];
+   }
+//    for(auto x: tmp) {
+//     std::cout << x << "\n";
+//    }
+//    std::cout << "tai--\n";
+//     for(auto x: tai) {
+//     std::cout << x << "\n";
+//    }
+//    std::cout << "taiended\n";
+   int idx=0;
+   for(int i=0;i<sz;i++) {
+    mData[mSize-1-b+idx] = tmp[i];
+    idx++;
+    mData[mSize-1-b+idx] = tmp[i];
+    idx++;
+   }
+   for(int i=0;i<a;i++) {
+    mData[mSize-1-b+idx] = tai[i];
+    idx++;
+   }
+   mSize += sz;
+
 }
 
 #endif
