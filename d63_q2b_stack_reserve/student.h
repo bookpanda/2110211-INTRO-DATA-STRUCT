@@ -4,10 +4,10 @@
 template <typename T>
 int CP::stack<T>::compare_reserve(const CP::stack<T> &other) const {
     //write your code here
-    int resa = mCap - mSize;
-    int resb = other.mCap - other.mSize;
-    if(resa > resb) return 1;
-    if(resa == resb) return 0;
+    int ra = mCap - mSize;
+    int rb = other.mCap - other.mSize;
+    if(ra > rb) return 1;
+    if(ra == rb) return 0;
     return -1;
 }
 

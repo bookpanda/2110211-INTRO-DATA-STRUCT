@@ -4,14 +4,17 @@
 template <typename T>
 bool CP::vector<T>::block_swap(iterator a, iterator b, size_t m) {
   //write your code here
-  if(m>0 && a+m<=end() && b+m<=end() && a>=begin() && b>=begin() && ((a+m-1 < b && a<b) || (b+m-1 < a && b<a))) {
-    for(int i=0;i<m;i++) {
-      std::swap(*(a+i), *(b+i));
-    }
-    return true;
-  } else {
-    return false;
+  int ia = a - begin();
+  int ib = b - begin();
+  if(ia > ib) {
+    std::swap(ia,ib);
+    std::swap(a,b);
   }
+  if(ia+m-1 >= ib || m<=0 || ia+m > mSize-1 || ib+m > mSize-1 || ia > mSize-1 || ib > mSize-1) return false;
+  for(int i=0;i<m;i++) {
+    std::swap(mData[ia+i], mData[ib+i]);
+  }
+  return true;
 }
 
 #endif
