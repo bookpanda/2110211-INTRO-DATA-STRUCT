@@ -6,29 +6,24 @@
 template <typename T>
 std::vector<std::vector<T>>  CP::stack<T>::split_stack(int k) const {
   //your code here
-  std::vector<std::vector<T> > ans(k);
-  int st = mSize-1; 
   int sz = mSize/k;
-  int idx = 0;
   int quota = mSize - sz*k;
+  std::vector<std::vector<T> > ans;
   for(int i=0;i<k;i++) {
-    int vsize = sz;
+    int vs = sz;
     if(quota) {
       quota--;
-      vsize++;
+      vs++;
     }
-
-    CP:stack<T> s;
-    for(int j=0;j<vsize;j++) {
-      s.push(mData[st - (j*k)]);
+    ans.push_back({});
+    CP::stack<T> s;
+    for(int j=0;j<vs;j++) {
+      s.push(mData[mSize-1-i-j*k]);
     }
     while(!s.empty()) {
-      ans[idx].push_back(s.top());
+      ans.back().push_back(s.top());
       s.pop();
     }
-
-    idx++;
-    st--;
   }
   return ans;
   //should return something

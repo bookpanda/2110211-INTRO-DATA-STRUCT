@@ -8,21 +8,20 @@ template <typename T>
 template <typename Comp>
 T CP::queue<T>::min_element(std::vector<size_t> pos,Comp comp) const {
   //your code here
-  T min;
-  bool isset = false;
+  T ans;
+  bool assign = false;
   for(auto x: pos) {
-    if(x >= mSize) continue;
-    // std::cout << min << " " << mData[(mFront+x)%mCap] << "\n";
-    if(isset) {
-      if(comp(mData[(mFront+x)%mCap], min)) min = mData[(mFront+x)%mCap];
-    }
-    else {
-      min = mData[(mFront+x)%mCap];
-      isset = true;
+    if(x > mSize-1) continue;
+    if(!assign) {
+      assign = true;
+      ans = mData[(mFront+x)%mCap];
+    } else {
+      if(comp(mData[(mFront+x)%mCap],ans)) ans = mData[(mFront+x)%mCap];
     }
   }
+  return ans;
   //should return something
-  return min;
+  
 }
 
 #endif

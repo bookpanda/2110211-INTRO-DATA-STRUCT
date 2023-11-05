@@ -2,13 +2,15 @@
 #include <vector>
 using namespace std;
 int relation(long long k, long long a, long long b) {
-    if(b > a) swap(a,b); //a is greater (child)
-    if((a-1)/k == b) return 1;
-    int lvla=0, lvlb=0;
+    int lvla=0,lvlb=0;
+    if(a < b) swap(a,b);
+    a = (a-1)/k;
+    lvla++;
+    if(a == b) return 1;
     while(a>0) {
         a = (a-1)/k;
-        if(a == b) return 2;
         lvla++;
+        if(a==b) return 2;
     }
     while(b>0) {
         b = (b-1)/k;
@@ -16,8 +18,6 @@ int relation(long long k, long long a, long long b) {
     }
     if(lvla == lvlb) return 4;
     return 3;
-
-
 }
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(0);

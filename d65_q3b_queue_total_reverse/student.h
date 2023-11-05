@@ -11,7 +11,7 @@ void CP::queue<T>::reverse() {
 template <typename T>
 const T& CP::queue<T>::front() const {
   // You MAY need to edit this function
-  if(aux) return mData[(mFront+mSize-1)%mCap]; 
+  if(aux) return mData[(mFront+mSize-1)%mCap];
   return mData[mFront];
 }
 
@@ -26,11 +26,11 @@ template <typename T>
 void CP::queue<T>::push(const T& element) {
   // You MAY need to edit this function
   ensureCapacity(mSize + 1);
-  if(aux) {
-    mData[(mFront-1+mCap) % mCap] = element;
-    mFront = (mFront-1+mCap) % mCap;
-  } else {
+  if(!aux) {
     mData[(mFront + mSize) % mCap] = element;
+  } else {
+    mData[(mFront-1+mCap)%mCap] = element;
+    mFront = (mFront-1+mCap)%mCap;
   }
   mSize++;
 }
