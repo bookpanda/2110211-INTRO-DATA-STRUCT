@@ -7,37 +7,47 @@ template <typename KeyT,
 CP::map_bst<KeyT,MappedT,CompareT> CP::map_bst<KeyT,MappedT,CompareT>::split(KeyT val) {
   //your code here
   CP::map_bst<KeyT,MappedT,CompareT> result;
-  node* tmp = mRoot;
-  while(tmp != NULL) {
-    if(tmp->data.first < val) {
-      tmp = tmp->right;
-    } else {
-      if(tmp->parent!=NULL)
-      tmp->parent->right = NULL;
-      break;
+  node* now = mRoot;
+  node* n1 = NULL;
+  mRoot = NULL;
+  node* n2 = NULL;
+  result.mRoot = NULL;
+
+  while(now != NULL) {
+    if(mLess(now->data.first, val)) {//old tree
+      if(n1 == NULL) {
+        mRoot = now;
+        mRoot->parent = NULL;
+      } else if(mLess(n1->data.first, now->data.first)) {
+        n1->right = now;
+        now->parent = n1;
+      }
+      //  else { //still why attach left
+      //   n1->left = now;
+      //   now->parent = n1;
+      // }
+
+      n1 = now;
+      now = now->right;
+      n1->right = NULL;
+    } else { //new tree
+      if(n2 == NULL) {
+        result.mRoot = now;
+        result.mRoot->parent = NULL;
+      } else if(mLess(now->data.first, n2->data.first)) {
+        n2->left = now;
+        now->parent = n2;
+      }
+      //  else { //still why attach right
+      //   n2->right = now;
+      //   now->parent = n2;
+      // }
+
+      n2 = now; //move to now
+      now = now->left;
+      n2->left = NULL; //cut left tree of now n2
     }
-  }
-  std::cout << "tmp: " << tmp->data.first << "\n";
-  std::cout << "parent: " << tmp->parent->data.first << "\n";
-
-  node* tmp2 = tmp;
-  while(tmp2 != NULL) {
-    if(tmp2->data.first >= val) {
-      tmp2 = tmp2->left;
-    } else {
-      if(tmp2->parent!=NULL)
-      tmp2->parent->left = NULL;
-      tmp2->parent = tmp->parent;
-      break;
-    }
-  }
-  std::cout << "tmp2: " << tmp2->data.first << "\n";
-  std::cout << "parent: " << tmp2->parent->data.first << "\n";
-
-  result.mRoot = tmp;
-  result.mRoot->parent = NULL;
-  // result.mRoot->left = NULL;
-
+  } 
 
   return result;
 }
