@@ -1,39 +1,53 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int arr[1000005];
-int main(){
-    int n, pos, col;
+int b[1000010];
+int main() {
+    int n,k,v;
 
-    cin >> n >> pos >> col;
-    for(int i=0;i<n+1;i++) {
-        if(i == pos) {
-            arr[i] = col;
-        } else {
-            int a;
-            cin >> a;
-            arr[i] = a;
-        }
-    }
-
-    int l=pos,r=pos;
-    int offset=0;
-    while(l>=0 && r<=n && arr[l] == arr[r]) {
-        while(arr[l] == arr[l-1] && l-1>=0) l--;
-        while(arr[r] == arr[r+1] && r+1<=n) r++;
-        // cout << "l = " << l << "(" << arr[l] << "), " << " r = " << r << "(" << arr[r] << ")" << "\n";
-
-        if(r-l+1 - offset < 3) break;
-
-        offset = r-l+1;
-        l--;
-        r++;
-        // cout << "new l = " << l << "(" << arr[l] << " new r = " << r << "(" << arr[r] << ")\n";
-    }
-    // cout << "ledft << " << l << " right " << r << "\n";
+    cin >> n >> k >> v;
     for(int i=0;i<=n;i++) {
-        if(i<=l || i>=r) {
-            cout << arr[i] << " ";
+        if(i == k) {
+            b[i] = v;
+            continue;
         }
+        cin >> b[i];
+    }
+
+    // for(int i=0;i<=n;i++) {
+    //     cout << i << " ";
+    // } cout << "\n";
+    // for(int i=0;i<=n;i++) {
+    //     cout << b[i] << " ";
+    // } cout << "\n";
+
+    int pl=k, pr=k;
+    int sl=k, sr=k;
+    while(pl>=0 && pr<=n) {
+        int cou=1;
+        if(pl!=pr) cou++;
+        while(pl-1>=0 && b[pl] == b[pl-1]) {
+            pl--;
+            cou++;
+        }
+        while(pr+1<=n && b[pr] == b[pr+1]) {
+            pr++;
+            cou++;
+        }
+        // cout << "pl = " << pl << "  pr = " << pr << "   cou = " << cou << "\n";
+        if(b[pl] == b[pr] && cou>2) {
+            sl=pl-1;
+            sr=pr+1;
+            pl--;
+            pr++;
+        } else {
+            break;
+        }
+    }
+
+    // cout << "FINAL sl = " << sl << "  sr = " << sr << "\n";
+    for(int i=0;i<=n;i++) {
+        if(i>sl && i<sr) continue;
+        cout << b[i] << " ";
     }
 }

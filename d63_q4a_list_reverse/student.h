@@ -15,6 +15,7 @@ typename CP::list<T>::iterator CP::list<T>::reverse(iterator a, iterator b) {
     if(a == b) break;
     b--;
   }
+
   return it;
 }
 
