@@ -6,24 +6,22 @@
 template <typename T>
 void CP::list<T>::extract(const T& value,iterator a, iterator b,CP::list<T>& output) {
   //write your code here
-  if(mSize==0) return;
-  auto it = a;
-  while(it != b) {
+  if(a==b) return;
+  iterator it=a;
+  while(it!=b) {
     if(*it == value) {
-      iterator tmp(it.ptr->next);
-      node *p = new node(it.ptr->data, output.mHeader, output.mHeader->next);
-      output.mHeader->next = p;
-      output.mHeader->next->prev = p;
-      // p->next->prev = p;
-      // p->prev->next = pt;
-      output.mSize++;
-
-      it.ptr->next->prev = it.ptr->prev;
-      it.ptr->prev->next = it.ptr->next;
+      node* n = it.ptr;
+      it++;
+      n->prev->next = n->next;
+      n->next->prev = n->prev;
+      
+      n->prev = output.mHeader;
+      n->next = output.mHeader->next;
       mSize--;
 
-      delete it.ptr;
-      it = tmp;
+      output.mHeader->next->prev = n;
+      output.mHeader->next = n;
+      output.mSize++;
     } else {
       it++;
     }

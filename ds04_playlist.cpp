@@ -196,18 +196,17 @@ class list
       std::vector<iterator> v(selected.size());
       for(int i=0;i<v.size();i++) {
         v[i] = begin();
-      }
-      for(int i=0;i<selected.size();i++) {
-        for(int j=0;j<selected[i];j++){
-            v[i]++;
+        for(int j=0;j<selected[i];j++) {
+          v[i]++;
         }
       }
+
       iterator it = begin();
       while(pos--) it++;
       for(int i=0;i<v.size();i++) {
-        insert(it, *v[i]);
+        insert(it ,*v[i]);
         erase(v[i]);
-      }
+      }  
     }
 
 };

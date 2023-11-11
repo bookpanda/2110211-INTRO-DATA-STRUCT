@@ -4,25 +4,24 @@
 template <typename T>
 CP::list<T> CP::list<T>::split(iterator it,size_t pos) {
   //write your code here
-  CP::list<T> result;
+  list<T> a;
 
-  if(it == end()) return result;
-
-  node* p1 = it.ptr;
-
-  p1->prev->next = mHeader;
-  result.mHeader->prev = mHeader->prev;
-  mHeader->prev->next = result.mHeader;
-  mHeader->prev = p1->prev;
-
-  result.mHeader->next = p1;
-  p1->prev = result.mHeader;
+  if(it==end()) return a;
   
-  int s = mSize - pos;
-  mSize -= s;
-  result.mSize = s;
+  node* n =  it.ptr;
+  n->prev->next = mHeader;
+  a.mHeader->prev = mHeader->prev;
+  a.mHeader->next = n;
+  mHeader->prev->next = a.mHeader;
+  mHeader->prev = n->prev;
 
-  return result;
+  n->prev = a.mHeader;
+//   n->next = 
+
+  a.mSize = mSize-pos;
+  mSize = pos;
+
+  return a;
 }
 
 #endif
