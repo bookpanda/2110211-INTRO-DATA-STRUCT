@@ -4,23 +4,21 @@
 template <typename T>
 void CP::list<T>::remove_all(const T& value) {
   //write your code here
-  iterator it = begin();
-  while(it != end()) {
-    // std::cout << "val = " << *it << "\n"; 
-    if(*it == value) { 
-      iterator tmp(it.ptr->next);
+  iterator it=begin();
+  while(it!=end()) {
+    if(*it == value) {
+      node* n = it.ptr;
+      n->prev->next = n->next;
+      n->next->prev = n->prev;
 
-      node* p = it.ptr;
-      p->prev->next = p->next;
-      p->next->prev = p->prev;
-      mSize--;
-
+      iterator tmp = it.ptr->next;
       delete it.ptr;
-      it = tmp;
+      it.ptr = tmp.ptr;
+      mSize--;
     } else {
       it++;
     }
   }
-}
+ }
 
 #endif

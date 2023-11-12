@@ -5,15 +5,14 @@ template <typename T>
 bool CP::list<T>::check() {
   //your code here
   if(mHeader == NULL) return false;
-
   iterator it = begin();
-
   for(int i=0;i<mSize;i++) {
-    if(it.ptr == NULL || it.ptr->prev==NULL || it.ptr->prev->next != it.ptr || it.ptr->next==NULL || it.ptr->next->prev != it.ptr) return false;
+    node* n = it.ptr;
+    if(n==NULL || n->prev==NULL || n->next==NULL || n->prev->next!=n || n->next->prev!= n) return false;
     it++;
   }
-
-  return it.ptr == mHeader;
+ 
+ return it.ptr==mHeader;
 }
 
 
