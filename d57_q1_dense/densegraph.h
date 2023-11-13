@@ -6,65 +6,54 @@
 using namespace std;
 class DenseGraph{
 public:
-    DenseGraph() {
+    DenseGraph() : DenseGraph(3) {
         // Your code here
-        for(int i=0;i<2;i++) {
-            nodes.insert(0);
-            al[i];
-        }
     }
 
     DenseGraph(int n_in) {
         // Your code here
-        for(int i=0;i<n_in;i++) {
-            nodes.insert(i);
-            al[i];
+        n = n_in;
+        al.resize(n);
+        for(int i=0;i<n;i++) {
+            al[i].resize(n);
         }
     }
 
-    DenseGraph(const DenseGraph& G) {
+    DenseGraph(const DenseGraph& G) : n(G.n), al(G.al) {
         // Your code here
-        nodes = G.nodes;
-        al = G.al;
     }
 
     void AddEdge(int a, int b) {
         // Your code here
-        al[a].insert(b);
+        al[a][b] = 1;
     }
 
     void RemoveEdge(int a, int b) {
         // Your code here
-        al[a].erase(b);
+        al[a][b] = 0;
     }
 
     bool DoesEdgeExist(int a, int b) const {
         // Your code here
-        if(al.find(a) == al.end()) return false;
-        return al.at(a).count(b) > 0;
+        return al[a][b];
     }
 
     DenseGraph Transpose() const {
         // Your code here
-        DenseGraph ans;
-        ans.n = nodes.size();
-        for(auto x: nodes) {
-            ans.nodes.insert(x);
-            ans.al[x];
-        }
-        for(auto x: al) {
-            for(auto y: x.second) {
-                ans.al.at(y).insert(x.first);
+        DenseGraph ans(n);
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<n;j++) {
+                ans.al[j][i] = al[i][j];
             }
         }
+
         return ans;
     }
 
 protected:
     int n;
     // Your code here
-    set<int> nodes;
-    map<int, set<int> > al;
+    vector<vector<int> > al;
 
 };
 #endif // __DENSE_GRAPH_H__
