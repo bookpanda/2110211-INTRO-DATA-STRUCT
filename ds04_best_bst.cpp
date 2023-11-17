@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include<queue>
-#include<map>
+#include<bits/stdc++.h>
+using namespace std;
 
 
 namespace CP {
@@ -337,31 +337,27 @@ void gen_best_bst(int n,CP::map_bst<int,int> &bst) {
   //write your code here
   //you can create additional function
   //but you cannot modify main or the map_bst class
-
-  // this is the example code of adding 1..n to the bst in ascending order
-  int mid = (n+1)/2;
-  std::queue<std::pair<int,int> > q;
-  std::map<int, int> mp;
-  q.push({mid,mid/2});
-  mp[mid] = 1;
+  queue<pair<int,int> > q;
+  // std::cout << "n = " << n << "\n";
+  q.push({(n+1)/2,(n+1)/2});
   while(!q.empty()) {
     int a = q.front().first;
-    int b = q.front().second;
-    // std::cout << a << ", " << b << "\n";
-    bst[a] = 100;
-    if(a+b <= n && mp.find(a+b)==mp.end()) {
-        mp[a+b] = 1;
-        q.push({a+b, (b+1)/2});
-    } if(a-b >= 1 && mp.find(a-b)==mp.end()) {
-        mp[a-b] = 1;
-        q.push({a-b, (b+1)/2});
-    }
+    int sz = q.front().second;
+    // std::cout << "a = " << a << "\n";
     q.pop();
+    bst[a] = 69;
+    if(a + (sz)/2 <= n && (sz)/2>0) {
+      q.push({a + (sz)/2, (sz)/2});
+    }
+    if(a - (sz)/2 >= 1 &&  (sz)/2>0) {
+      q.push({a - (sz)/2, (sz)/2});
+    }
   }
 
-//   for (int i = 1;i <= n;i++) {
-//     bst[i] = 100;
-//   }
+  // this is the example code of adding 1..n to the bst in ascending order
+  // for (int i = 1;i <= n;i++) {
+  //   bst[i] = 100;
+  // }
 }
 
 int main() {
