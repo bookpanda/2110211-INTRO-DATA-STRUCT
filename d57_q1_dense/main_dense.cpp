@@ -98,7 +98,6 @@ bool runCase(int testCase) {
         for (unsigned int i = 0; i < k; i++) {
             int a = (int)(((i+32131)^77811+311) % n);
             int b = (int)(((i+132131)^778117+3111*i*i+3132117) % n);
-            cout << "add " << a << " " << b << "\n";
             gt.AddEdge(a,b);
         }
         DenseGraph g = gt;
@@ -108,11 +107,9 @@ bool runCase(int testCase) {
             if (!g.DoesEdgeExist(a,b)) return false;
         }
         DenseGraph g2 = gt.Transpose();
-        cout << "asd\n";
         for (unsigned int i = 0; i < k; i++) {
             int a = (int)(((i+32131)^77811+311) % n);
             int b = (int)(((i+132131)^778117+3111*i*i+3132117) % n);
-            cout << a << " " << b << "\n";
             if (!g2.DoesEdgeExist(b,a)) return false;
         }
         for (int i = 0; i < n; i++) {

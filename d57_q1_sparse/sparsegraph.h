@@ -12,12 +12,15 @@ public:
         // Your code here
     }
 
-    SparseGraph(int n_in) : n(n_in), al(n_in) {
+    SparseGraph(int n_in) {
         // Your code here
+        n = n_in;
+        al.resize(n);
     }
 
     SparseGraph(const SparseGraph& G) : n(G.n), al(G.al) {
         // Your code here
+
     }
 
     void AddEdge(int a, int b) {
@@ -32,15 +35,15 @@ public:
 
     bool DoesEdgeExist(int a, int b) const {
         // Your code here
-        return al[a].count(b) > 0;
+        return al[a].find(b) != al[a].end();
     }
 
     SparseGraph Transpose() const {
         // Your code here
         SparseGraph ans(n);
         for(int i=0;i<n;i++) {
-            for(auto y: al[i]) {
-                ans.al[y].insert(i);
+            for(auto x: al[i]) {
+                ans.al[x].insert(i);
             }
         }
         return ans;
@@ -50,7 +53,6 @@ protected:
     // Your code here
     int n;
     vector<set<int> > al;
-
 };
 #endif // __SPARSE_GRAPH_H__
 

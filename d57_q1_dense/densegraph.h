@@ -2,7 +2,8 @@
 #define __DENSE_GRAPH_H__
 
 // Your code here
-#include <bits/stdc++.h>
+#include <vector>
+#include<bits/stdc++.h>
 using namespace std;
 class DenseGraph{
 public:
@@ -14,9 +15,6 @@ public:
         // Your code here
         n = n_in;
         al.resize(n);
-        for(int i=0;i<n;i++) {
-            al[i].resize(n);
-        }
     }
 
     DenseGraph(const DenseGraph& G) : n(G.n), al(G.al) {
@@ -25,25 +23,25 @@ public:
 
     void AddEdge(int a, int b) {
         // Your code here
-        al[a][b] = 1;
+        al[a].insert(b);
     }
 
     void RemoveEdge(int a, int b) {
         // Your code here
-        al[a][b] = 0;
+        al[a].erase(b);
     }
 
     bool DoesEdgeExist(int a, int b) const {
         // Your code here
-        return al[a][b];
+        return al[a].find(b) != al[a].end();
     }
 
     DenseGraph Transpose() const {
         // Your code here
         DenseGraph ans(n);
         for(int i=0;i<n;i++) {
-            for(int j=0;j<n;j++) {
-                ans.al[j][i] = al[i][j];
+            for(auto x: al[i]) {
+                ans.al[x].insert(i);
             }
         }
 
@@ -53,7 +51,6 @@ public:
 protected:
     int n;
     // Your code here
-    vector<vector<int> > al;
-
+    vector<set<int> > al;
 };
 #endif // __DENSE_GRAPH_H__

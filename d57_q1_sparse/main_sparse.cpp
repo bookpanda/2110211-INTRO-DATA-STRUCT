@@ -7,7 +7,6 @@ bool runCase(int testCase) {
         SparseGraph g;
         g.AddEdge(0,1);
         if (!g.DoesEdgeExist(0,1)) return false;
-        cout << "a\n";
         if (g.DoesEdgeExist(1,0)) return false;
     } else
     if (testCase == 2) {

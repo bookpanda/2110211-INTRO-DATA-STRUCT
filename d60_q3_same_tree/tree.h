@@ -36,15 +36,14 @@ public:
     }
     bool isSameBinaryTree(Tree& t) {
         // Insert your code here
-        if(mSize!=t.mSize) return false;
         return isSame(mRoot, t.mRoot);
     }
     // You can also put your code here
     bool isSame(Node* n, Node* m) {
-        if(n==NULL && m==NULL) return true;
-        if(m==NULL) return false;
-        if(n==NULL) return false;
-        return n->data == m->data && isSame(n->left, m->left) && isSame(n->right, m->right);
+        if(!n && !m) return true;
+        if(!n || !m) return false;
+        if(n->data != m->data) return false;
+        return isSame(n->left, m->left) && isSame(n->right, m->right);
     }
 
 protected:
