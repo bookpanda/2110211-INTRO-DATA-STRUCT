@@ -5,29 +5,23 @@
 template <typename T>
 void CP::vector<T>::erase_many(const std::vector<int> &pos) {
   //write your code here
-  // for(int i=pos.size()-1;i>=0;i--){
-    // auto it = begin();
-    // erase(it+pos[i]);
-  // }
-  int offset = 0;
-  int idx = 0;
-  int possize = pos.size();
+  int idx=0;
+  int posid=0;
+  int cou=0;
+  // std::cout << "-----------\n";
   for(int i=0;i<mSize;i++) {
-    // int a = 0;
-    while(idx<possize && pos[idx] == i+offset) {
-      offset++;
-      idx++;
-      mSize--;
-      // a++;
-      // std::cout << "SKIP " << pos[idx] << "\n";
+    // std::cout << "i = " << i << "\n";
+    if(posid < pos.size() && pos[posid] == i) {
+      // std::cout << "pos[" << posid << "] = " << pos[posid] << "\n";
+      posid++;
+      // mSize--;
+      cou++;
+      continue;
     }
-    // std::cout << mData[i] << " replaced by " << mData[i+offset] << "\n";
-    mData[i] = mData[i+offset];
+    mData[idx] = mData[i];
+    idx++;
   }
-  // mSize -= offset;
-  // for(int i=0;i<mSize;i++) {
-  //   std::cout << mData[i] << " ";
-  // } std::cout << "\n";
+  mSize -= cou;
 }
 
 #endif

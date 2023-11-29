@@ -8,8 +8,10 @@ T& CP::vector_no_move<T>::operator[](int idx) {
   //your code here
   auto it = std::upper_bound(aux.begin(), aux.end(), idx);
   int i = it - aux.begin();
-  int prev = i > 0 ? aux[i-1] : 0;
-  return mData[i][idx - prev];
+  
+  // std::cout << "idx = " << idx << "  i = " << i << "\n";
+  int e = i>0 ? idx - aux[i-1] : idx;
+  return mData[i][e];
 }
 
 template <typename T>
