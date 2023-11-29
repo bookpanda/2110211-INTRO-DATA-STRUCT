@@ -11,7 +11,6 @@ template <typename KeyT,
 size_t CP::map_bst<KeyT,MappedT,CompareT>::leaves_count(node* n) {
   if(!n) return 0;
   if(!n->left && !n->right) return 1;
-
   return leaves_count(n->left) + leaves_count(n->right);
 }
 

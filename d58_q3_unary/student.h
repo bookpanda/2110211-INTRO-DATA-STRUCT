@@ -7,10 +7,8 @@ template <typename KeyT,
 size_t CP::map_bst<KeyT,MappedT,CompareT>::process(node* ptr) const {
   //you may write additional code here
   if(!ptr) return 0;
-
+  if(!ptr->left && ptr->right) return 1+process(ptr->right);
   if(ptr->left && !ptr->right) return 1+process(ptr->left);
-  if(ptr->right && !ptr->left) return 1+process(ptr->right);
-
   return process(ptr->left) + process(ptr->right);
 }
 

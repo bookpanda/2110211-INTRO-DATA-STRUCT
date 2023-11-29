@@ -9,33 +9,33 @@ CP::map_bst<KeyT,MappedT,CompareT> CP::map_bst<KeyT,MappedT,CompareT>::split(Key
   CP::map_bst<KeyT,MappedT,CompareT> ans;
 
   node* now = mRoot;
-  mRoot = NULL;
   node* n1 = NULL;
   node* n2 = NULL;
-
+  mRoot = NULL;
+  ans.mRoot = NULL;
   while(now) {
-    if(mLess(now->data.first, val)) {
+    if(mLess(now->data.first, val)) { //old tree
       if(mRoot==NULL) {
         mRoot = now;
         mRoot->parent = NULL;
-      } else if(mLess(n1->data.first, now->data.first)) {
+      } else if(mLess(n1->data.first, now->data.first)) { //n1<now, now is right child
         n1->right = now;
         now->parent = n1;
       }
       n1 = now;
       now = now->right;
-      n1->right = NULL;
-    } else {
+      n1->right = NULL; //maintain left, but always sus right
+    } else { //new tree
       if(ans.mRoot==NULL) {
         ans.mRoot = now;
         ans.mRoot->parent = NULL;
-      } else if(mLess(now->data.first, n2->data.first)) {
+      } else if(mLess(now->data.first, n2->data.first)) { //now<n2, now is left child
         n2->left = now;
         now->parent = n2;
       }
       n2 = now;
       now = now->left;
-      n2->left = NULL;
+      n2->left = NULL; //maintain right, but always sus left
     }
   }
   return ans;

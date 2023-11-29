@@ -337,20 +337,25 @@ void gen_best_bst(int n,CP::map_bst<int,int> &bst) {
   //write your code here
   //you can create additional function
   //but you cannot modify main or the map_bst class
+  // if(n==0) return;
+  // if(n==1) {
+  //   bst[1] = 69;
+  //   return;
+  // }
   queue<pair<int,int> > q;
-  // std::cout << "n = " << n << "\n";
-  q.push({(n+1)/2,(n+1)/2});
+  q.push({(n+1)/2, (n+1)/2});
   while(!q.empty()) {
-    int a = q.front().first;
+    int pos = q.front().first;
     int sz = q.front().second;
-    // std::cout << "a = " << a << "\n";
+    int newsz = (sz+1)/2;
     q.pop();
-    bst[a] = 69;
-    if(a + (sz)/2 <= n && (sz)/2>0) {
-      q.push({a + (sz)/2, (sz)/2});
+    // cout << pos << ", " << sz << "\n";
+    bst[pos] = 69;
+    if(pos+newsz <= n && newsz!=sz) {
+      q.push({pos+newsz, newsz});
     }
-    if(a - (sz)/2 >= 1 &&  (sz)/2>0) {
-      q.push({a - (sz)/2, (sz)/2});
+    if(pos-newsz >= 1 && newsz!=sz) {
+      q.push({pos-newsz, newsz});
     }
   }
 
