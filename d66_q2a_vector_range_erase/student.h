@@ -8,43 +8,47 @@
 template <typename T>
 void CP::vector<T>::range_erase(std::vector<std::pair<iterator, iterator>> &ranges) {
   // Write code here
-  std::vector<std::pair<int, int>> tmp(ranges.size());
+  std::vector<std::pair<int,int > > v;
   for(int i=0;i<ranges.size();i++) {
-    tmp[i] = {ranges[i].first - begin(), ranges[i].second - begin()};
+    int st = ranges[i].first - begin();
+    int ed = ranges[i].second - begin();
+    v.push_back({st, ed});
   }
-  sort(tmp.begin(), tmp.end());
-  bool del[500010];
-  for(int i=0;i<500010;i++) del[i] = false;
+  sort(v.begin(), v.end());
+  std::vector<std::pair<int,int > > dr;
+  for(int i=0;i<v.size();i++) {
+    if(dr.size() == 0)
+      dr.push_back({v[i].first, v[i].second});
+    else if(dr.back().second >= v[i].first) {
+      dr.back().second = std::max(dr.back().second, v[i].second);
+    } else {
+      dr.push_back({v[i].first, v[i].second});
+    }
+  }
+  // for(auto x: dr) {
+  //   std::cout << x.first << " , " << x.second << "\n";
+  // }
+  std::vector<bool> de(mSize);
+  // for(int i=0;i<mSize;i++) de[i] = false;
 
-  int prev = -1;
-  size_t newSize = mSize;
-  for(auto x: tmp) {
-    // std::cout << x.first << ",  " << x.second << "\n";
-    if(x.first < prev) {
-      x.first = prev;
+  for(int i=0;i<dr.size();i++) {
+    for(int j=dr[i].first; j<dr[i].second; j++) {
+      de[j] = true;
     }
-    for(int i=x.first; i<x.second;i++) {
-      del[i] = true;
-      // std::cout << "del " << i << "\n";
-      newSize--;
-    }
-    prev = std::max(prev,x.second);
   }
 
   int idx=0;
-  T* newData = new T[newSize]();
+  int offset=0;
   for(int i=0;i<mSize;i++) {
-    if(!del[i]) {
-      newData[idx] = mData[i];
+    if(!de[i]) {
+      mData[idx] = mData[i];
       idx++;
+    } else {
+      // std::cout << "delete " << mData[i] << "\n";
+      offset++;
     }
   }
-  // delete [] mData;
-  using std::swap;
-  std::swap(mSize, newSize);
-  std::swap(mCap, newSize);
-  std::swap(mData, newData);
-
+  mSize-=offset;
 }
 
 #endif

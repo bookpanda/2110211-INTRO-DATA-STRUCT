@@ -8,30 +8,31 @@ template <typename T>
 void CP::vector<T>::insert_many(CP::vector<std::pair<int,T> > data) {
   //write your code here
   sort(data.begin(), data.end());
-  int dsize = data.size();
-  int idx = 0;
-  int idxm=0;
-  ensureCapacity(mSize+dsize);
-  // CP::vector<T> newData = vector(mSize+dsize);
-  T *newData = new T[mCap]();
-  // for(auto x: data) {
-  //   std::cout << x.first << "," << x.second << " ";
-  // } std::cout << "\n";
-
-  for(int i=0;i<mSize+dsize;i++) {
-    if(idxm == data[idx].first) {
-      newData[i] = data[idx].second;
-      // std::cout << "newData[" << i << "] = " << data[idx].second << "\n";
+  // CP::vector<T> tmp;
+  ensureCapacity(mSize+data.size());
+  T *tmp = new T[mCap]();
+  int di=0;
+  int idx=0;
+  for(int i=0;i<mCap;i++) {
+    if(di<data.size() && data[di].first == idx) {
+      tmp[i] = (data[di].second);
+      di++;
+    } else if(idx<mSize){
+      tmp[i] = (mData[idx]);
       idx++;
-    } else {
-      newData[i] = mData[idxm];
-      // std::cout << "newData[" << i << "] = " << mData[idxm] << "\n";
-      idxm++;
     }
   }
+
+  // for(auto x : tmp) {
+  //   std::cout << x << ", ";
+  // } std::cout << "\n";
+
+  mSize += data.size();
   delete [] mData;
-  mData = newData;
-  mSize += dsize;
+  mData = tmp;
+  // for(int j=0;j<mSize;j++) {
+  //   mData[j] = tmp[j];
+  // }
 }
 
 #endif
