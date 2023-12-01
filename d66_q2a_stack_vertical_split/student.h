@@ -8,26 +8,28 @@ template <typename T>
 void CP::stack<T>::v_split(std::vector<std::stack<T>> &output, size_t k) const {
   // Write code here
   int sz = mSize/k;
-  int offset=0;
-  int quota = mSize - sz*k;
-  for(int i=0;i<k;i++) {
-    int rsz = sz;
+  int quota = mSize - k*sz;
+
+  int i=mSize-1;
+  output.resize(k);
+  int idx=0;
+  while(i>=0) {
+    int vz = sz;
     if(quota) {
       quota--;
-      rsz++;
+      vz++;
     }
-    CP::stack<T> s;
-    for(int j=0;j<rsz;j++) {
-      // std::cout << "idx =  " << mSize-1-(j+offset) << "\n";
-      s.push(mData[mSize-1-(j+offset)]);
+    std::stack<T> s;
+    for(int j=0;j<vz;j++) {
+      s.push(mData[i]);
+      i--;
     }
-    offset += rsz;
-    output.push_back({});
+
     while(!s.empty()) {
-      // std::cout << "push " << s.top() << "\n";
-      output.back().push(s.top());
+      output[idx].push(s.top());
       s.pop();
     }
+    idx++;
   }
 }
 

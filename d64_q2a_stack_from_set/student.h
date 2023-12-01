@@ -8,18 +8,18 @@
 template <typename T>
 CP::stack<T>::stack(typename std::set<T>::iterator first,typename std::set<T>::iterator last) {
   //write your code ONLY here
-  CP::stack<T> s;  
+  CP::stack<T> tmp;
   for(auto it=first;it!=last;it++) {
-    s.push(*it);
+    tmp.push(*it);
   }
-  this->mData = new T[s.size()]();
-  this->mCap = s.size();
-  this->mSize = s.size();
+
+  this->mData = new T[tmp.size()]();
+  this->mCap = tmp.size();
+  this->mSize = tmp.size();
   int idx=0;
-  while(!s.empty()) {
-    mData[idx] = s.top();
-    idx++;
-    s.pop();
+  while(!tmp.empty()) {
+    mData[idx++] = tmp.top();
+    tmp.pop(); 
   }
 }
 

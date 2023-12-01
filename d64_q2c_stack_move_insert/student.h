@@ -5,28 +5,26 @@
 template <typename T>
 void CP::stack<T>::moveInsert(int k,CP::stack<T> &s2, int m) {
   //your code here
-  CP::stack<T> tmp, tmp2;
-  int cou=0;
-  while(cou<m && !s2.empty()) {
-    tmp.push(s2.top());
-    s2.pop();
-    cou++;
-  }
-  cou=0;
-  while(cou < k && !empty()) {
-    tmp2.push(top());
-    pop();
-    cou++;
-  }
-  while(!tmp.empty()){
-    push(tmp.top());
-    tmp.pop();
-  }
-  while(!tmp2.empty()){
-    push(tmp2.top());
-    tmp2.pop();
-  }
+  CP::stack<T> t1, t2;
 
+  for(int i=0;i<m;i++) {
+    t1.push(s2.top());
+    s2.pop();
+    if(s2.empty()) break;
+  }
+  for(int i=0;i<k;i++) {
+    t2.push(top());
+    pop();
+    if(empty()) break;
+  }
+  while(!t1.empty()) {
+    push(t1.top());
+    t1.pop();
+  }
+  while(!t2.empty()) {
+    push(t2.top());
+    t2.pop();
+  }
 
 }
 #endif
