@@ -3,22 +3,21 @@ using namespace std;
 
 int main() {
     int n;
-    long long cap = 1;
-    long long sz = 0;
-
+    long long mS=0, mC=1;
 
     cin >> n;
     while(n--) {
-        int a,k;
+        int a, k;
         cin >> a >> k;
         if(a == 0) {
-            while(cap < sz + k) {
-                cap *= 2;
+            mS += k;
+            while(mC < mS) {
+                mC *= 2;
             }
-            sz += k;
         } else if(a == 1) {
-            sz -= k;
+            mS = mS-k;
+            if(mS < 0) mS = 0;
         }
     }
-    cout << cap - sz << "\n";
+    cout << mC - mS << "\n";
 }

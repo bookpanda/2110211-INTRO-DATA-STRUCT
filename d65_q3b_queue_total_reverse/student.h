@@ -26,11 +26,11 @@ template <typename T>
 void CP::queue<T>::push(const T& element) {
   // You MAY need to edit this function
   ensureCapacity(mSize + 1);
-  if(!aux) {
-    mData[(mFront + mSize) % mCap] = element;
-  } else {
+  if(aux) {
     mData[(mFront-1+mCap)%mCap] = element;
-    mFront = (mFront-1+mCap)%mCap;
+    mFront = (mFront-1+mCap) % mCap;
+  } else {
+    mData[(mFront + mSize) % mCap] = element;
   }
   mSize++;
 }
@@ -38,9 +38,7 @@ void CP::queue<T>::push(const T& element) {
 template <typename T>
 void CP::queue<T>::pop() {
   // You MAY need to edit this function
-  if(!aux) {
-    mFront = (mFront + 1) % mCap;
-  }
+  if(!aux) mFront = (mFront + 1) % mCap;
   mSize--;
 }
 

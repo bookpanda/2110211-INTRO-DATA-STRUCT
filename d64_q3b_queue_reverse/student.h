@@ -6,9 +6,9 @@
 template <typename T>
 void CP::queue<T>::reverse(int a,int b) {
   //your code here
-  int r = (b-a+1)/2;
-  for(int i=0;i<r;i++) {
-    std::swap(mData[(mFront+a+i)%mCap], mData[(mFront+b-i)%mCap]);
+  int sz = b-a+1;
+  for(int i=0;i<sz/2;i++) {
+    std::swap(mData[(mFront+a+i)%mCap], mData[(mFront+b-i+mCap)%mCap]);
   }
 }
 
