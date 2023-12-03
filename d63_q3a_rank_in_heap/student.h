@@ -12,32 +12,31 @@ template <typename T,typename Comp>
 size_t CP::priority_queue<T,Comp>::get_rank(size_t pos) const {
   //write your code here
   if(!init) {
-    std::vector<std::pair<int,int> > v;
+    init = true;
+    vector<pair<T, int> > v(mSize);
     for(int i=0;i<mSize;i++) {
-      v.push_back({mData[i], -i});
-    } 
+      v[i] = {mData[i], -i};
+    }
     sort(v.begin(), v.end());
     if(mLess(T(0), T(1))) reverse(v.begin(), v.end());
     int prev=-1;
     int mini=0;
     for(int i=0;i<v.size();i++) {
-      // cout << "(" << v[i].first << ", " << v[i].second << ")\n";
       if(prev == v[i].first) {
         mp[-v[i].second] = min(mini, i);
       } else {
         mp[-v[i].second] = i;
         mini = i;
       }
-
       prev = v[i].first;
+      // cout << x.first << " , " << x.second << "\n";
+      // if(mp.find(-v[i].second) == mp.end()) {
+      //   mp[-v[i].second] = mSize - i-1;
+      // } else if(mSize - i-1 < mp[-v[i].second])
+      // mp[-v[i].second] = mSize - i-1;
     }
-    // for(auto x: mp) {
-    //   cout << x.first << ", " << x.second << "\n";
-    // }
-    init = true;
   }
   return mp[pos];
-  
 }
 
 #endif
