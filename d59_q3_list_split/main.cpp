@@ -51,8 +51,10 @@ bool check(CP::list<int> &l,CP::list<int> &check) {
 
 
 int main() {
-  std::vector<int> v = {10, 20, 30, 40, 50, 60, 70, 80};
-  size_t pos = 4;
+  // std::vector<int> v = {10, 20, 30, 40, 50, 60, 70, 80};
+  // size_t pos = 4;
+  std::vector<int> v = {10, 20, 30, 40, 50, 60};
+  size_t pos = 2;
 
 
   // add value from v to l

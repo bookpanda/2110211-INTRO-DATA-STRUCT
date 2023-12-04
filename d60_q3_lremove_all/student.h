@@ -9,11 +9,11 @@ void CP::list<T>::remove_all(const T& value) {
     if(*it == value) {
       node* n = it.ptr;
       iterator tmp(it.ptr->next);
-      n->next->prev = n->prev;
       n->prev->next = n->next;
-      delete it.ptr;
-      it.ptr = tmp.ptr;
+      n->next->prev = n->prev;
       mSize--;
+      delete it.ptr;
+      it = tmp;
     } else {
       it++;
     }

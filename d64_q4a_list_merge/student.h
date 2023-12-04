@@ -5,21 +5,20 @@
 template <typename T>
 void CP::list<T>::merge(CP::list<CP::list<T>> &ls) {
   //write your code here
-  for(auto &l:ls) {
-    node* n = l.mHeader;
+  for(CP::list<T> &l: ls) {
+    node* n = mHeader;
+    n->prev->next = l.mHeader->next; //last of old
+    l.mHeader->next->prev = n->prev;
 
-    //last of old
-    mHeader->prev->next = n->next;
-    n->next->prev = mHeader->prev;
+    mHeader->prev = l.mHeader->prev;
+    l.mHeader->prev->next = mHeader;
 
-    //mHeader of old
-    mHeader->prev = n->prev;
-    n->prev->next = mHeader;
+    l.mHeader->next = l.mHeader;
+    l.mHeader->prev = l.mHeader;
 
-    n->prev = n;
-    n->next = n;
-    mSize+=l.mSize;
-    l.mSize=0;
+    mSize += l.mSize;
+    l.mSize = 0;
+    // delete l.mHeader;
   }
 }
 

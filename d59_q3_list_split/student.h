@@ -9,19 +9,19 @@ CP::list<T> CP::list<T>::split(iterator it,size_t pos) {
   
   node* n = it.ptr;
 
+  n->prev->next = mHeader;
+
+  ans.mHeader->next = n;
+
   ans.mHeader->prev = mHeader->prev;
   mHeader->prev->next = ans.mHeader;
-  //n - mHeader
-  n->prev->next = mHeader;
-  mHeader->prev = n->prev;
-  
 
-  //n - ans
+  mHeader->prev = n->prev;
   n->prev = ans.mHeader;
-  ans.mHeader->next = n;
 
   ans.mSize = mSize-pos;
   mSize = pos;
+
   return ans;
 }
 

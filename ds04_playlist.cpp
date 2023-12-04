@@ -193,19 +193,21 @@ class list
 
     void reorder(int pos,std::vector<int> selected) {
       //write your code only here
-      std::vector<iterator> v;
-      for(auto &x: selected) {
-          iterator it = begin();
-          for(int i=0;i<x;i++) {
-            it++;
-          }
-          v.push_back(it);
-      }
+      std::vector<iterator> tmp;
+      int idx=0;
       iterator it = begin();
-      while(pos--) it++;
-      for(int i=0;i<v.size();i++) {
-        insert(it, *v[i]);
-        erase(v[i]);
+      for(int i=0;i<selected.size();i++) {
+        while(idx<selected[i]) {
+          it++;
+          idx++;
+        }
+        tmp.push_back(it);
+      }
+      iterator it2 = begin();
+      for(int i=0;i<pos;i++) it2++;
+      for(iterator it1: tmp) {
+        insert(it2, *it1);
+        it1 = erase(it1);
       }
     }
 

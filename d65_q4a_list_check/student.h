@@ -4,13 +4,13 @@
 template <typename T>
 bool CP::list<T>::check() {
   //your code here
-  node* n = mHeader->next;
+  iterator it = begin();
   for(int i=0;i<mSize;i++) {
-    if(n==NULL || n->next==NULL || n->prev==NULL || n->prev->next!=n || n->next->prev!=n) return false;
-    n = n->next;
+    node* n = it.ptr;
+    if(!n || !n->prev || !n->next || n->prev->next != n || n->next->prev != n) return false;
+    it++;
   }
-
-  return n == mHeader;
+  return it.ptr == mHeader;
 }
 
 

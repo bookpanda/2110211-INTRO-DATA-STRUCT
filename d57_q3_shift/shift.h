@@ -1,24 +1,22 @@
 void shift(int k) {
 	// TODO: Add your code here
-	int m = mSize;
-	k %= m;
-	if(k<0) k = (k+m)%m;
+	int sz = mSize;
+	k = k % sz;
+	if(k<0) k = (k+sz) % sz;
 
-	iterator it = begin();
-	while(k--) it++;
+	// if(k==0) return;
 
-	node* st = it.ptr;
-	//connect last to first directly
-	mHeader->prev->next = mHeader->next;
+	node* n = mHeader;
+	for(int i=0;i<=k;i++) n = n->next;
+	//n = new first node
+
+
+
 	mHeader->next->prev = mHeader->prev;
+	mHeader->prev->next = mHeader->next;
+	mHeader->prev = n->prev;
+	n->prev->next = mHeader;
 
-	mHeader->prev = st->prev;
-	st->prev->next = mHeader;
-
-	st->prev = mHeader;
-	mHeader->next = st;
-
-
-
-
+	n->prev = mHeader;
+	mHeader->next = n;
 }

@@ -16,19 +16,17 @@ void CP::list<T>::block_swap(iterator a1, iterator a2, iterator b1, iterator b2)
 	node* B2 = b2.ptr;
 
 	if(a2 == b1) {
-		node* tmp = a2.ptr; //tmp = b1 = a2
-		node* tmp2 = tmp->prev;
+		node* mid = A2;
+		node* tmp = mid->prev;
 
-		A1->prev->next = tmp;
-		B1->prev = A1->prev; //front
+		A1->prev->next = B1;
+		B1->prev = A1->prev;
 
 		B2->prev->next = A1;
 		A1->prev = B2->prev;
 
-		tmp2->next = B2; //back
-		B2->prev = tmp2;
-
-		
+		tmp->next = B2;
+		B2->prev = tmp;
 	} else {
 		std::swap(A1->prev->next, B1->prev->next);
 		std::swap(A1->prev, B1->prev);
