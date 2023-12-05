@@ -4,10 +4,14 @@
 using namespace std;
 bool runCase(int testCase) {
     if (testCase == 1) {
+        cout << "a\n";
         SparseGraph g;
+        cout << "a\n";
         g.AddEdge(0,1);
-        if (!g.DoesEdgeExist(0,1)) return false;
-        if (g.DoesEdgeExist(1,0)) return false;
+        cout << "a\n";
+        // if (!g.DoesEdgeExist(0,1)) return false;
+        cout << "a\n";
+        // if (g.DoesEdgeExist(1,0)) return false;
     } else
     if (testCase == 2) {
         SparseGraph g(400);

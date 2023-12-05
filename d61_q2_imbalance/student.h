@@ -1,24 +1,24 @@
 // Your code here
 int dfs(node* n, int &max, int &ans) {
-    if(n == NULL) return -1;
-    int left = dfs(n->left, max, ans);
-    int right = dfs(n->right, max, ans);
-    int dif = std::abs(left-right);
-    // std::cout << "node " << n->data.first << "   dif = " << dif << "\n";
-    if(dif > max){
+    if(!n) return 0;
+    
+    int lh = dfs(n->left, max, ans);
+    int rh = dfs(n->right, max, ans);
+    int dif = std::abs(lh-rh);
+    if(dif > max) {
         max = dif;
         ans = n->data.first;
-    } else if(dif == max) {
-        ans = std::min(ans, n->data.first);
+    } else if(dif == max && n->data.first < ans) {
+        ans = n->data.first;
     }
-    return 1+std::max(left, right);
+    int res = 1+std::max(lh, rh);
+    return res;
 }
 
 KeyT getValueOfMostImbalanceNode() {
     // Your code here
-    int max=0;
-    KeyT ans=9999;
-    dfs(mRoot, max, ans);    
-
+    int max=-1;
+    int ans=-1;
+    dfs(mRoot, max, ans);
     return ans;
 }

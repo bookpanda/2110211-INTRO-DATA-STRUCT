@@ -11,8 +11,9 @@ template <typename KeyT,
 void CP::map_bst<KeyT,MappedT,CompareT>::my_recur(node* n,size_t level, size_t tmp, std::vector<KeyT> &v) {
   //you MAY need to use this function
   if(!n) return;
-  if(level==tmp) {
+  if(tmp==level) {
     v.push_back(n->data.first);
+    return;
   }
   my_recur(n->right, level, tmp+1, v);
   my_recur(n->left, level, tmp+1, v);

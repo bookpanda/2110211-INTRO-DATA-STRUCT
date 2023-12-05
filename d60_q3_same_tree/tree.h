@@ -39,11 +39,11 @@ public:
         return isSame(mRoot, t.mRoot);
     }
     // You can also put your code here
-    bool isSame(Node* n, Node* m) {
-        if(!n && !m) return true;
-        if(!n || !m) return false;
-        if(n->data != m->data) return false;
-        return isSame(n->left, m->left) && isSame(n->right, m->right);
+    bool isSame(Node* a, Node* b) {
+        if(!a && !b) return true;
+        if(!a || !b) return false;
+
+        return a->data == b->data && isSame(a->left, b->left) && isSame(a->right, b->right);
     }
 
 protected:

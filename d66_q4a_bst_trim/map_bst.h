@@ -1,9 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include<bits/stdc++.h>
-using namespace std;
+#ifndef _CP_MAP_BST_INCLUDED_
+#define _CP_MAP_BST_INCLUDED_
 
+#include <iostream>
+//#pragma once
 
 namespace CP {
 
@@ -154,6 +153,7 @@ class map_bst
         delete_all_nodes(r->right);
         delete r;
     }
+    void my_recur(node* n,int level,int tmp);
 
   public:
     //-------------- constructor & copy operator ----------
@@ -302,74 +302,9 @@ class map_bst
         return checkInorder(r->right);
     }
 
-    //---------------------------- tree traversal ------------------------
-    void print_key_preorder(node *r) {
-      if (r==NULL) return ;
-      std::cout << r->data.first << " ";
-      print_key_preorder(r->left);
-      print_key_preorder(r->right);
-    }
-
-    void print_key_inorder(node *r) {
-      if (r==NULL) return ;
-      print_key_inorder(r->left);
-      std::cout << r->data.first << " ";
-      print_key_inorder(r->right);
-    }
-
-    void print_key_postorder(node *r) {
-      if (r==NULL) return ;
-      print_key_postorder(r->left);
-      print_key_postorder(r->right);
-      std::cout << r->data.first << " ";
-    }
-
-    void print_key_preorder() { print_key_preorder(mRoot); std::cout << std::endl;}
-    void print_key_inorder() { print_key_inorder(mRoot); std::cout << std::endl; }
-    void print_key_postorder() { print_key_postorder(mRoot); std::cout << std::endl; }
+    void trim(int depth);
 };
 
 }
 
-//you can add other function as well BUT CANNOT MODIFY MAIN nor map_bst class
-
-void gen_best_bst(int n,CP::map_bst<int,int> &bst) {
-  //write your code here
-  //you can create additional function
-  //but you cannot modify main or the map_bst class
-  int mid = (n+1)/2;
-  queue<pair<int,int> > q;
-  q.push({mid, mid/2});
-  while(!q.empty()) {
-    auto x = q.front();
-    int a = x.first;
-    int sz = x.second;
-    q.pop();
-    bst[a] = 69;
-    // cout<< a << ", " << sz << "\n";
-    if(sz>0 && a+sz<=n) {
-      q.push({a+sz, sz/2});
-    }
-    if(sz>0 && a-sz>=1) {
-      q.push({a-sz, sz/2});
-    }
-  }
-
-
-  // this is the example code of adding 1..n to the bst in ascending order
-  // for (int i = 1;i <= n;i++) {
-  //   bst[i] = 100;
-  // }
-}
-
-int main() {
-  int k;
-  int n;
-  std::cin >> k;
-  n = (2 << k) - 1;
-  CP::map_bst<int,int> bst;
-  gen_best_bst(n,bst);
-  bst.print_key_preorder();
-  bst.print_key_inorder();
-  bst.print_key_postorder();
-}
+#endif

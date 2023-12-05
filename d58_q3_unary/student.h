@@ -7,9 +7,9 @@ template <typename KeyT,
 size_t CP::map_bst<KeyT,MappedT,CompareT>::process(node* ptr) const {
   //you may write additional code here
   if(!ptr) return 0;
-  if(!ptr->left && ptr->right) return 1+process(ptr->right);
-  if(ptr->left && !ptr->right) return 1+process(ptr->left);
-  return process(ptr->left) + process(ptr->right);
+  if(!ptr->left && !ptr->right) return 0;
+  if(!ptr->left || !ptr->right) return 1+process(ptr->left)+process(ptr->right);
+  return process(ptr->left)+process(ptr->right);
 }
 
 template <typename KeyT,
@@ -17,7 +17,7 @@ template <typename KeyT,
           typename CompareT>
 size_t CP::map_bst<KeyT,MappedT,CompareT>::count_unary() const {
   //write your code here
-  if(mSize==0) return 0;
+  // if(mSize==0) return 0;
   return process(mRoot);
 }
 

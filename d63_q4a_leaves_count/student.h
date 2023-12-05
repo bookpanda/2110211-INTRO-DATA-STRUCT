@@ -20,7 +20,6 @@ template <typename KeyT,
           typename CompareT>
 size_t CP::map_bst<KeyT,MappedT,CompareT>::leaves_count() {
   return leaves_count(mRoot);
-  //write your code here
 }
 
 

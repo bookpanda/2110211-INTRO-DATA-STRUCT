@@ -10,10 +10,9 @@ template <typename KeyT,
           typename CompareT>
 int CP::map_bst<KeyT,MappedT,CompareT>::shallowest_leaf(node* n) {
   if(!n) return -1;
-  if(n->left && !n->right) return 1+ shallowest_leaf(n->left);
-  if(!n->left && n->right) return 1+ shallowest_leaf(n->right);
-
-  return 1 + std::min(shallowest_leaf(n->left), shallowest_leaf(n->right));
+  if(!n->left) return 1+shallowest_leaf(n->right);
+  if(!n->right) return 1+shallowest_leaf(n->left);
+  return 1+std::min(shallowest_leaf(n->left), shallowest_leaf(n->right));
 }
 
 template <typename KeyT,
@@ -21,9 +20,7 @@ template <typename KeyT,
           typename CompareT>
 int CP::map_bst<KeyT,MappedT,CompareT>::shallowest_leaf() {
   //write your code here
-  // if(mSize==0) return -1;
-  // if(mSize==1) return 0;
-  return shallowest_leaf(mRoot);
+  return shallowest_leaf(mRoot); 
 }
 
 

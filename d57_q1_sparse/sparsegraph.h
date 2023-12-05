@@ -1,8 +1,9 @@
 #ifndef __SPARSE_GRAPH_H__
 #define __SPARSE_GRAPH_H__
 
-// Your code here
 #include<bits/stdc++.h>
+using namespace std;
+// Your code here
 
 using namespace std;
 
@@ -20,7 +21,6 @@ public:
 
     SparseGraph(const SparseGraph& G) : n(G.n), al(G.al) {
         // Your code here
-
     }
 
     void AddEdge(int a, int b) {
@@ -42,7 +42,7 @@ public:
         // Your code here
         SparseGraph ans(n);
         for(int i=0;i<n;i++) {
-            for(auto x: al[i]) {
+            for(auto x: al.at(i)) {
                 ans.al[x].insert(i);
             }
         }

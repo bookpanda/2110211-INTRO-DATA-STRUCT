@@ -3,7 +3,7 @@
 
 // Your code here
 #include <vector>
-#include<bits/stdc++.h>
+#include<set>
 using namespace std;
 class DenseGraph{
 public:
@@ -44,13 +44,13 @@ public:
                 ans.al[x].insert(i);
             }
         }
-
         return ans;
     }
 
 protected:
     int n;
-    // Your code here
     vector<set<int> > al;
+    // Your code here
+
 };
 #endif // __DENSE_GRAPH_H__
