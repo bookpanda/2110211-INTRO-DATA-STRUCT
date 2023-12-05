@@ -59,6 +59,10 @@ int main() {
 
   // add value from v to l
 	CP::list<int> l1;
+  std::cout << "l1 has what \n";
+  for(auto &x: l1) {
+    std::cout << "l1: " << x << "\n";
+  }
   for (auto x : v) l1.push_back(x);
 
 

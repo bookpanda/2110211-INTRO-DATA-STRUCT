@@ -96,6 +96,14 @@ class list
       return *this;
     }
 
+    T& operator[] (const int i) {
+      node* n = mHeader;
+      for(int j=0;j<=i;j++) {
+          n = n->next;
+      }
+      return (n->data);
+    }
+
     ~list() {
       clear();
       delete mHeader;

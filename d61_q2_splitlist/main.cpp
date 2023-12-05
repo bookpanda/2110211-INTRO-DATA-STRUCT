@@ -12,6 +12,10 @@ int main()
     x.push_back(2);
     x.push_back(6);
     x.push_back(3);
+    cout << "x[0] = " << x[0] << "\n";
+    x[0] = 2;
+    cout << "x[0] = " << x[0] << "\n";
+
 
     a.push_back(1);
     a.push_back(2);
@@ -19,7 +23,7 @@ int main()
     b.push_back(3);
     b.push_back(4);
     b.push_back(5);
-    x.splitList(a, b);
+    // x.splitList(a, b);
     cout<<"x is"<<endl;
     x.print();
     cout<<"a is"<<endl;
