@@ -17,24 +17,21 @@ namespace CP {
                 inorder(n->right);
             }
 
+            void recur(int st, int ed) {
+                if(st > ed) return;
+                int mid = (st+mid) / 2;
+                insert(v[mid]);
+                recur(st, mid-1);
+                recur(mid+1, ed);
+            }
+
         public:
             void make_balance() { // your code here
                 vector<MappedT> v;
-                inorder(v);
+                inorder(mRoot, v);
                 //v is sorted asc
                 int sz = v.size();
-                queue<pair<MappedT,int> > q;
-                mRoot = NULL;
-                mSize = 0;
-                q.push({v[(sz+1)/2], sz/2});
-                while(!q.empty()) {
-                    int val = q.front().first;
-                    int r = q.front().second;
-                    q.pop();
-                    insert(val);
-                    if(r/2>0 && r+(r/2) < sz) q.push({v[r+(r/2)], r/2});
-                    if(r/2>0 && r-(r/2) >= 0) q.push({v[r-(r/2)], r/2});
-                }
+                recur(0, sz-1);
             }
     };
 }

@@ -332,28 +332,37 @@ class map_bst
 }
 
 //you can add other function as well BUT CANNOT MODIFY MAIN nor map_bst class
+void recur(CP::map_bst<int,int> &bst, int n, int d) {
+  if(d == 0) return;
+  bst[n+d] = 1;
+  bst[n-d] = 1;
+  recur(bst, n+d, d/2);
+  recur(bst, n-d, d/2);
+}
 
 void gen_best_bst(int n,CP::map_bst<int,int> &bst) {
   //write your code here
   //you can create additional function
   //but you cannot modify main or the map_bst class
   int mid = (n+1)/2;
-  queue<pair<int,int> > q;
-  q.push({mid, mid/2});
-  while(!q.empty()) {
-    auto x = q.front();
-    int a = x.first;
-    int sz = x.second;
-    q.pop();
-    bst[a] = 69;
-    // cout<< a << ", " << sz << "\n";
-    if(sz>0 && a+sz<=n) {
-      q.push({a+sz, sz/2});
-    }
-    if(sz>0 && a-sz>=1) {
-      q.push({a-sz, sz/2});
-    }
-  }
+  bst[mid] = 1;
+  recur(bst, mid, mid/2);
+  // queue<pair<int,int> > q;
+  // q.push({mid, mid/2});
+  // while(!q.empty()) {
+  //   auto x = q.front();
+  //   int a = x.first;
+  //   int sz = x.second;
+  //   q.pop();
+  //   bst[a] = 69;
+  //   cout<< a << ", " << sz << "\n";
+  //   if(sz>0 && a+sz<=n) {
+  //     q.push({a+sz, sz/2});
+  //   }
+  //   if(sz>0 && a-sz>=1) {
+  //     q.push({a-sz, sz/2});
+  //   }
+  // }
 
 
   // this is the example code of adding 1..n to the bst in ascending order
@@ -366,7 +375,8 @@ int main() {
   int k;
   int n;
   std::cin >> k;
-  n = (2 << k) - 1;
+  // n = (2 << k) - 1;
+  n = k;
   CP::map_bst<int,int> bst;
   gen_best_bst(n,bst);
   bst.print_key_preorder();
